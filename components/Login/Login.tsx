@@ -46,7 +46,7 @@ export function Login() {
         login();
       }}
     >
-      <img className={styles.image} src="swerc.png" />
+      <img className={styles.image} src="/swerc.png" />
       {loading && <p>Loading...</p>}
       {!loading && (
         <>
