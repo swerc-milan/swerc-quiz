@@ -1,3 +1,4 @@
+import { Navbar } from "components/Navbar/Navbar";
 import { auth } from "lib/firebase";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -14,5 +15,9 @@ export default function IndexPage() {
     }
   }, [user, loading]);
 
-  return <div>Hello world!</div>;
+  return (
+    <div>
+      <Navbar />
+    </div>
+  );
 }

@@ -1,0 +1,18 @@
+.navbar {
+  min-height: 80px;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  padding: 0.5rem 1rem;
+}
+
+.name {
+  flex-grow: 1;
+}
+
+.logout {
+  height: 2rem;
+  padding: 0.25rem;
+}

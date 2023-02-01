@@ -2,6 +2,7 @@ html,
 body {
   background-color: rgb(44, 44, 44);
   color: rgb(208, 208, 208);
+  font-family: sans-serif;
 }
 
 /* CSS reset */

@@ -1,6 +1,9 @@
 {
   "rules": {
-    ".read": "now < 1677798000000",
+    "users": {
+      ".read": true,
+      ".write": false
+    },
     ".write": "now < 1677798000000"
   }
 }
