@@ -1,3 +1,4 @@
+import { MessageView } from "components/MessageView/MessageView";
 import { States } from "lib/types";
 
 export function PendingStart({
@@ -7,5 +8,10 @@ export function PendingStart({
   uid: string;
   state: States.PendingStart;
 }) {
-  return <p>Pending start of {state.name ?? "a game"}</p>;
+  return (
+    <MessageView>
+      {state.name ? <strong>{state.name}</strong> : "A new quiz"} will start
+      shortly
+    </MessageView>
+  );
 }

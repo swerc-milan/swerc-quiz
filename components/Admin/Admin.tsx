@@ -2,8 +2,10 @@ import { auth, database } from "lib/firebase";
 import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { useObjectVal } from "react-firebase-hooks/database";
 import { ref } from "firebase/database";
-import { User } from "lib/types";
+import { State, User } from "lib/types";
 import styles from "./Admin.module.css";
+import { Navbar } from "components/Navbar/Navbar";
+import { Game } from "components/Game/Game";
 
 export function Admin() {
   const [user, loading] = useAuthState(auth);
@@ -33,5 +35,26 @@ export function AdminLoggedIn({ uid }: { uid: string }) {
   if (!user) return <div>Not authorized</div>;
   if (!user.isAdmin) return <div>Not authorized</div>;
 
-  return <p>admin!!</p>;
+  return (
+    <>
+      <Navbar />
+      <CurrentState uid={uid} />
+    </>
+  );
+}
+
+export function CurrentState({ uid }: { uid: string }) {
+  const [state, loading] = useObjectVal<State>(ref(database, "state"));
+
+  if (loading) return <div>Loading...</div>;
+  return (
+    <>
+      <h2>Current state</h2>
+      <details>
+        <div className={styles.currentState}>
+          <Game uid={uid} />
+        </div>
+      </details>
+    </>
+  );
 }

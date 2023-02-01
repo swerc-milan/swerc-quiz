@@ -19,9 +19,9 @@ export default function IndexPage() {
   if (!user) return null;
 
   return (
-    <div>
+    <>
       <Navbar />
       <Game uid={user.uid} />
-    </div>
+    </>
   );
 }

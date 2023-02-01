@@ -1,4 +1,8 @@
 .container {
-    margin: 0 auto;
-    max-width: 40rem;
+  margin: 0 auto;
+  max-width: 40rem;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
 }
