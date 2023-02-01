@@ -10,8 +10,10 @@ export function PendingStart({
 }) {
   return (
     <MessageView>
-      {state.name ? <strong>{state.name}</strong> : "A new quiz"} will start
-      shortly
+      <div>
+        {state.name ? <strong>{state.name}</strong> : "A new quiz"} will start
+        shortly
+      </div>
     </MessageView>
   );
 }

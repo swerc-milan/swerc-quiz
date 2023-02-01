@@ -12,4 +12,13 @@ export namespace States {
   };
 }
 
+// /state
 export type State = States.NoGame | States.PendingStart;
+
+// /admin/games
+export type Games = Record<string, Game>;
+
+// /admin/games/:id
+export type Game = {
+  name?: string;
+};

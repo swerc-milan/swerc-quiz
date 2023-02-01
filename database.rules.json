@@ -2,11 +2,15 @@
   "rules": {
     "users": {
       ".read": true,
-      ".write": false
+      ".write": "auth != null && root.child('users').child(auth.uid).child('isAdmin').val() == true"
     },
     "state": {
       ".read": true,
-      ".write": false
+      ".write": "auth != null && root.child('users').child(auth.uid).child('isAdmin').val() == true"
+    },
+    "admin": {
+      ".read": "auth != null && root.child('users').child(auth.uid).child('isAdmin').val() == true",
+      ".write": "auth != null && root.child('users').child(auth.uid).child('isAdmin').val() == true"
     }
   }
 }

@@ -1,11 +1,13 @@
 import { auth, database } from "lib/firebase";
 import { useAuthState, useSignInWithGoogle } from "react-firebase-hooks/auth";
-import { useObjectVal } from "react-firebase-hooks/database";
-import { ref } from "firebase/database";
-import { State, User } from "lib/types";
+import { useObject, useObjectVal } from "react-firebase-hooks/database";
+import { ref, set } from "firebase/database";
+import { Games, State, States, User } from "lib/types";
 import styles from "./Admin.module.css";
 import { Navbar } from "components/Navbar/Navbar";
 import { Game } from "components/Game/Game";
+import { ErrorView } from "components/ErrorView/ErrorView";
+import { cancelGame, makePendingGame } from "lib/admin";
 
 export function Admin() {
   const [user, loading] = useAuthState(auth);
@@ -14,7 +16,7 @@ export function Admin() {
   return user ? <AdminLoggedIn uid={user.uid} /> : <AdminLogin />;
 }
 
-export function AdminLogin() {
+function AdminLogin() {
   const [signInWithGoogle] = useSignInWithGoogle(auth);
   return (
     <div className={styles.container}>
@@ -28,7 +30,7 @@ export function AdminLogin() {
   );
 }
 
-export function AdminLoggedIn({ uid }: { uid: string }) {
+function AdminLoggedIn({ uid }: { uid: string }) {
   const [user, loading] = useObjectVal<User>(ref(database, `users/${uid}`));
 
   if (loading) return <div>Loading...</div>;
@@ -38,18 +40,17 @@ export function AdminLoggedIn({ uid }: { uid: string }) {
   return (
     <>
       <Navbar />
+      <h2>Current state</h2>
       <CurrentState uid={uid} />
+      <h2>Actions</h2>
+      <CurrentStateActions />
     </>
   );
 }
 
-export function CurrentState({ uid }: { uid: string }) {
-  const [state, loading] = useObjectVal<State>(ref(database, "state"));
-
-  if (loading) return <div>Loading...</div>;
+function CurrentState({ uid }: { uid: string }) {
   return (
     <>
-      <h2>Current state</h2>
       <details>
         <div className={styles.currentState}>
           <Game uid={uid} />
@@ -57,4 +58,49 @@ export function CurrentState({ uid }: { uid: string }) {
       </details>
     </>
   );
+}
+
+function CurrentStateActions() {
+  const [state, stateLoading, stateError] = useObjectVal<State>(
+    ref(database, "state")
+  );
+  const [gamesSnapshot, gamesLoading, gamesError] = useObject(
+    ref(database, "admin/games")
+  );
+  const error = stateError ?? gamesError;
+
+  if (stateLoading || gamesLoading) return <div>Loading...</div>;
+  if (error) return <ErrorView error={error} />;
+
+  const games = gamesSnapshot?.val() as Games;
+
+  if (!state) {
+    return (
+      <>
+        <p>No game is running. Select a game to make it ready.</p>
+        <ul>
+          {Object.entries(games ?? {}).map(([gameId, game]) => (
+            <li key={gameId}>
+              <button onClick={() => makePendingGame(game.name ?? null)}>
+                {game.name ?? "<unnamed>"}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </>
+    );
+  }
+
+  switch (state.kind) {
+    case "pendingStart":
+      return (
+        <>
+          <p>{state.name ?? "A game"} is ready to start.</p>
+          <div>
+            <button>Start</button>{" "}
+            <button onClick={() => cancelGame()}>Cancel</button>
+          </div>
+        </>
+      );
+  }
 }
