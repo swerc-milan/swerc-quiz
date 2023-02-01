@@ -1,3 +1,4 @@
+import { Game } from "components/Game/Game";
 import { Navbar } from "components/Navbar/Navbar";
 import { auth } from "lib/firebase";
 import { useRouter } from "next/router";
@@ -15,9 +16,12 @@ export default function IndexPage() {
     }
   }, [user, loading]);
 
+  if (!user) return null;
+
   return (
     <div>
       <Navbar />
+      <Game uid={user.uid} />
     </div>
   );
 }

@@ -4,6 +4,9 @@
       ".read": true,
       ".write": false
     },
-    ".write": "now < 1677798000000"
+    "state": {
+      ".read": true,
+      ".write": false
+    }
   }
 }
