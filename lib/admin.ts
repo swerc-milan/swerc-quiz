@@ -3,8 +3,30 @@ import { database } from "./firebase";
 import { Answer, Rank, States } from "./types";
 
 export function importGame(gameData: any) {
-  console.log(gameData);
-  if (gameData.id) set(ref(database, `admin/games/${gameData.id}`), gameData);
+  const id = gameData.id;
+  const name = gameData.name;
+  const questions = gameData.questions;
+  if (!id || !name || !questions) {
+    alert("Invalid game data");
+  }
+  set(ref(database, `admin/games/${id}`), {
+    name,
+    questions,
+  });
+
+  if (gameData.images) {
+    for (const image of gameData.images) {
+      const imageId = image.id;
+      const imageUrl = image.url;
+      if (!imageId || !imageUrl) {
+        alert("Invalid image data");
+      }
+      set(ref(database, `images/${imageId}`), {
+        url: imageUrl,
+        kind: image.kind ?? "img",
+      });
+    }
+  }
 }
 
 export function makePendingGame(gameName: string | null, gameId: string) {

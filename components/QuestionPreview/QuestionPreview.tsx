@@ -3,6 +3,7 @@ import { ref } from "firebase/database";
 import { database } from "lib/firebase";
 import { Question, Image } from "lib/types";
 import { useObjectVal } from "react-firebase-hooks/database";
+import styles from "./QuestionPreview.module.css";
 
 export function QuestionPreview({ question }: { question: Question }) {
   const [image, imageLoading, imageError] = useObjectVal<Image>(
@@ -18,7 +19,9 @@ export function QuestionPreview({ question }: { question: Question }) {
         <>
           {imageLoading && <div>Loading...</div>}
           {imageError && <ErrorView error={imageError} />}
-          {image && (image.kind ?? "img") === "img" && <img src={image.url} />}
+          {image && (image.kind ?? "img") === "img" && (
+            <img className={styles.image} src={image.url} />
+          )}
         </>
       )}
       {question.topic && (
