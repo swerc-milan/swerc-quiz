@@ -39,7 +39,6 @@ function AdminLoggedIn({ uid }: { uid: string }) {
   return (
     <>
       <Navbar />
-      <h2>Current state</h2>
       <CurrentState uid={uid} />
       <h2>Actions</h2>
       <CurrentStateActions />

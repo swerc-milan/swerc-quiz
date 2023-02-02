@@ -47,16 +47,20 @@ export function PendingReveal({
   const submissions: Record<string, Submission> =
     submissionsSnapshot?.val() ?? {};
 
-  if (!ranking) {
+  const computeRanking = () => {
+    if (!game.questions) return;
+
     if (index > 0) {
       // Compute the ranking from the previous question's one.
       const previousQuestion = game.questions[index - 1];
+      console.log("previous question: ", previousQuestion.id ?? "");
+      console.log("at", `ranking/${gameId}/${previousQuestion.id}`);
       get(ref(database, `ranking/${gameId}/${previousQuestion.id}`)).then(
         (snap) => {
           const oldRanking = snap.val();
           if (!oldRanking) return;
           const newRanking = updateRanking(
-            [],
+            oldRanking,
             submissions,
             state.startTime ?? 0,
             question.time ?? 0,
@@ -79,7 +83,7 @@ export function PendingReveal({
       );
       set(ref(database, `ranking/${gameId}/${state.questionId}`), newRanking);
     }
-  }
+  };
 
   const newRanking: Ranking[] | undefined = ranking as Ranking[] | undefined;
 
@@ -111,7 +115,10 @@ export function PendingReveal({
             <RankingPreview ranking={newRanking} />
           </>
         ) : (
-          <div>Ranking is not ready yet.</div>
+          <>
+            <div>Ranking is not ready yet.</div>
+            <button onClick={() => computeRanking()}>Compute ranking</button>
+          </>
         )}
       </div>
     </div>

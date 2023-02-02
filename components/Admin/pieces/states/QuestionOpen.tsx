@@ -79,7 +79,16 @@ export function QuestionOpen({
         >
           Reset question timer
         </button>
-        <button onClick={() => alert("todo")}>Close question</button>
+        <button
+          onClick={() => {
+            if (state.startTime === undefined) return;
+            if (confirm("You are about to close the question. Are you sure?")) {
+              closeQuestion(gameId, questionId, index, state.startTime);
+            }
+          }}
+        >
+          Close question
+        </button>
       </div>
     </>
   );
