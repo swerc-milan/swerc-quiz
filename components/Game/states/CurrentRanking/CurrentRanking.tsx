@@ -36,13 +36,19 @@ export function CurrentRanking({
               item={item}
               hideName={state.hideRanking ?? false}
               users={users ?? {}}
+              index={index}
             />
           ))}
       </div>
       {myRanking && myRanking.rank > CUTOFF && (
         <div className={styles.myRanking}>
           <p className={styles.myRankingTitle}>Your position</p>
-          <RankingItem item={myRanking} hideName={false} users={users ?? {}} />
+          <RankingItem
+            item={myRanking}
+            hideName={false}
+            users={users ?? {}}
+            index={0}
+          />
         </div>
       )}
     </div>
