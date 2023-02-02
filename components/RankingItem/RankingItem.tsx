@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { Ranking, User } from "lib/types";
+import { Rank, User } from "lib/types";
 import styles from "./RankingItem.module.css";
 
 const HIDDEN_NAMES = [
@@ -22,7 +22,7 @@ export function RankingItem({
   index,
   isMe,
 }: {
-  item: Ranking;
+  item: Rank;
   hideName: boolean;
   users: Record<string, User>;
   index: number;

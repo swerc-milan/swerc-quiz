@@ -17,7 +17,7 @@ export function PendingReveal({
   const [submissionsSnapshot, submissionsLoading, submissionsError] = useObject(
     ref(database, `answers/${state.gameId}/${state.questionId}`)
   );
-  const [ranking, rankingLoading, rankingError] = useObjectVal(
+  const [ranking, rankingLoading, rankingError] = useObjectVal<Ranking>(
     ref(database, `ranking/${state.gameId}/${state.questionId}`)
   );
 
@@ -53,14 +53,12 @@ export function PendingReveal({
     if (index > 0) {
       // Compute the ranking from the previous question's one.
       const previousQuestion = game.questions[index - 1];
-      console.log("previous question: ", previousQuestion.id ?? "");
-      console.log("at", `ranking/${gameId}/${previousQuestion.id}`);
       get(ref(database, `ranking/${gameId}/${previousQuestion.id}`)).then(
         (snap) => {
           const oldRanking = snap.val();
           if (!oldRanking) return;
           const newRanking = updateRanking(
-            oldRanking,
+            oldRanking.ranking ?? [],
             submissions,
             state.startTime ?? 0,
             question.time ?? 0,
@@ -85,8 +83,6 @@ export function PendingReveal({
     }
   };
 
-  const newRanking: Ranking[] | undefined = ranking as Ranking[] | undefined;
-
   return (
     <div>
       <div>
@@ -94,7 +90,7 @@ export function PendingReveal({
         is <strong>{correctAnswer.text}</strong>.
       </div>
       <div>
-        {newRanking ? (
+        {ranking ? (
           <>
             <div>Ranking is ready!</div>
             <button
@@ -113,7 +109,7 @@ export function PendingReveal({
             >
               Reveal correct answer
             </button>
-            <RankingPreview ranking={newRanking} />
+            <RankingPreview ranking={ranking.ranking ?? []} />
           </>
         ) : (
           <>

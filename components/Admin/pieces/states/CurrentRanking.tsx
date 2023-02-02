@@ -14,7 +14,7 @@ export function CurrentRanking({
   state: States.CurrentRanking;
   game: Game;
 }) {
-  const [ranking, rankingLoading, rankingError] = useObjectVal<Ranking[]>(
+  const [ranking, rankingLoading, rankingError] = useObjectVal<Ranking>(
     ref(database, `ranking/${state.gameId}/${state.questionId}`)
   );
 
@@ -70,7 +70,7 @@ export function CurrentRanking({
       )}
 
       <h3>Full ranking</h3>
-      <RankingPreview ranking={ranking} />
+      <RankingPreview ranking={ranking.ranking ?? []} />
     </div>
   );
 }

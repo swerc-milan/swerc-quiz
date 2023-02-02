@@ -13,8 +13,8 @@ export function PendingFinalRanking({
   state: States.PendingFinalRanking;
   game: Game;
 }) {
-  const [hideFirst, setHideFirst] = useState<number>(2);
-  const [ranking, rankingLoading, rankingError] = useObjectVal<Ranking[]>(
+  const [hideFirst, setHideFirst] = useState<number>(5);
+  const [ranking, rankingLoading, rankingError] = useObjectVal<Ranking>(
     ref(database, `ranking/${state.gameId}/${state.questionId}`)
   );
 
@@ -41,7 +41,12 @@ export function PendingFinalRanking({
       </p>
       <button
         onClick={() =>
-          showFinalRanking(gameId, questionId, ranking ?? [], hideFirst)
+          showFinalRanking(
+            gameId,
+            questionId,
+            ranking?.ranking ?? [],
+            hideFirst
+          )
         }
       >
         Show ranking

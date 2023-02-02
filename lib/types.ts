@@ -54,7 +54,7 @@ export namespace States {
     gameId?: string;
     questionId?: string;
     index?: number;
-    ranking?: Ranking[];
+    ranking?: Rank[];
     hideRanking?: boolean;
   };
   export type PendingFinalRanking = {
@@ -66,7 +66,7 @@ export namespace States {
     kind: "finalRanking";
     gameId?: string;
     questionId?: string;
-    ranking?: Ranking[];
+    ranking?: Rank[];
     hideFirst?: number;
   };
 }
@@ -120,6 +120,13 @@ export type Submission = {
 
 // /ranking/:gameId/:questionId
 export type Ranking = {
+  ranking: Rank[];
+  answerCounts: Record<string, number>;
+  computedAt: number;
+};
+
+// /ranking/:gameId/:questionId/ranking[i]
+export type Rank = {
   uid: string;
   rank: number;
   score: number;

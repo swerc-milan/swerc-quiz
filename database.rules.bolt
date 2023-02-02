@@ -53,7 +53,7 @@ path /ranking {
     write() { isAdmin() }
 }
 
-path /ranking/{game}/{question}/{index} is Ranking {}
+path /ranking/{game}/{question}/ranking/{index} is Ranking {}
 
 path /images/{image} is Image {
     read() { true }

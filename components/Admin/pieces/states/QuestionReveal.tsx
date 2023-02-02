@@ -13,7 +13,7 @@ export function QuestionReveal({
   state: States.QuestionReveal;
   game: Game;
 }) {
-  const [ranking, rankingLoading, rankingError] = useObjectVal<Ranking[]>(
+  const [ranking, rankingLoading, rankingError] = useObjectVal<Ranking>(
     ref(database, `ranking/${state.gameId}/${state.questionId}`)
   );
 
@@ -40,12 +40,18 @@ export function QuestionReveal({
       <p>Ready to reveal current standings.</p>
       <button
         onClick={() =>
-          revealCurrentRanking(gameId, questionId, index, ranking, hideRanking)
+          revealCurrentRanking(
+            gameId,
+            questionId,
+            index,
+            ranking.ranking ?? [],
+            hideRanking
+          )
         }
       >
         Reveal standings
       </button>
-      <RankingPreview ranking={ranking} />
+      <RankingPreview ranking={ranking.ranking ?? []} />
     </div>
   );
 }

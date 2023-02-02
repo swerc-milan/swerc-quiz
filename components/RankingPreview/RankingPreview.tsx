@@ -1,10 +1,10 @@
 import { ErrorView } from "components/ErrorView/ErrorView";
 import { ref } from "firebase/database";
 import { database } from "lib/firebase";
-import { Ranking, User } from "lib/types";
+import { Rank, User } from "lib/types";
 import { useObjectVal } from "react-firebase-hooks/database";
 
-export function RankingPreview({ ranking }: { ranking: Ranking[] }) {
+export function RankingPreview({ ranking }: { ranking: Rank[] }) {
   const [users, usersLoading, usersError] = useObjectVal<Record<string, User>>(
     ref(database, "users")
   );

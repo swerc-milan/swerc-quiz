@@ -1,4 +1,4 @@
-import { Ranking, Submission } from "./types";
+import { Rank, Ranking, Submission } from "./types";
 
 // Points that are awarded to the first correct submission if everyone answers correctly.
 const MIN_POINTS_FASTEST_CORRECT = 500;
@@ -9,13 +9,13 @@ const MAX_POINTS_FASTEST_CORRECT = 1000;
 const MIN_POINTS_CORRECT = 10;
 
 export function updateRanking(
-  oldRanking: Ranking[],
+  oldRanking: Rank[],
   submissions: Record<string, Submission>,
   startTime: number,
   maxTime: number,
   correctAnswerId: string
-): Ranking[] {
-  const newRanking: Record<string, Ranking> = {};
+): Ranking {
+  const newRanking: Record<string, Rank> = {};
   for (const oldPlayer of oldRanking) {
     newRanking[oldPlayer.uid] = {
       uid: oldPlayer.uid,
@@ -24,6 +24,7 @@ export function updateRanking(
       delta: 0,
     };
   }
+  const answerCounts: Record<string, number> = {};
   for (const [uid, submission] of Object.entries(submissions)) {
     if (!(uid in newRanking)) {
       newRanking[uid] = {
@@ -33,6 +34,10 @@ export function updateRanking(
         delta: 0,
       };
     }
+    if (!(submission.answerId in answerCounts)) {
+      answerCounts[submission.answerId] = 0;
+    }
+    answerCounts[submission.answerId]++;
   }
   const numPlayers = Object.keys(newRanking).length;
 
@@ -43,7 +48,11 @@ export function updateRanking(
   const correctPercentage = numCorrect / numPlayers;
 
   if (numCorrect === 0) {
-    return updateRank(newRanking);
+    return {
+      ranking: updateRank(newRanking),
+      answerCounts,
+      computedAt: new Date().getTime(),
+    };
   }
 
   // Time from the opening of the question to the first correct submission.
@@ -69,10 +78,14 @@ export function updateRanking(
     newRanking[uid].delta = delta;
   }
 
-  return updateRank(newRanking);
+  return {
+    ranking: updateRank(newRanking),
+    answerCounts,
+    computedAt: new Date().getTime(),
+  };
 }
 
-function updateRank(ranking: Record<string, Ranking>) {
+function updateRank(ranking: Record<string, Rank>) {
   const sorted = Object.values(ranking).sort((a, b) => compare(a, b));
   let rank = 0;
   let index = 0;
@@ -88,7 +101,7 @@ function updateRank(ranking: Record<string, Ranking>) {
   return sorted;
 }
 
-function compare(a: Ranking, b: Ranking) {
+function compare(a: Rank, b: Rank) {
   if (a.rank < b.rank) return -1;
   if (a.rank > b.rank) return 1;
   if (a.score > b.score) return -1;
