@@ -136,3 +136,7 @@ export function showFinalRanking(
   };
   set(ref(database, "state"), newState);
 }
+
+export function updateFinalRankingHideFirst(hideFirst: number) {
+  set(ref(database, "state/hideFirst"), hideFirst);
+}
