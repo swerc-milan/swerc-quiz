@@ -6,6 +6,7 @@ import { useObjectVal } from "react-firebase-hooks/database";
 import { NextQuestionSoon } from "./states/NextQuestionSoon/NextQuestionSoon";
 import { NoGame } from "./states/NoGame/NoGame";
 import { PendingStart } from "./states/PendingStart/PendingStart";
+import { QuestionOpen } from "./states/QuestionOpen/QuestionOpen";
 
 export function Game({ uid }: { uid: string }) {
   const [state, loading, error] = useObjectVal<State>(ref(database, "state"));
@@ -23,6 +24,8 @@ function GameInner({ uid, state }: { uid: string; state: State }) {
       return <PendingStart uid={uid} state={state} />;
     case "nextQuestionSoon":
       return <NextQuestionSoon uid={uid} state={state} />;
+    case "questionOpen":
+      return <QuestionOpen uid={uid} state={state} />;
     default:
       return <div>Unknown state</div>;
   }
