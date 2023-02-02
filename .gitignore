@@ -27,6 +27,7 @@ yarn-error.log*
 # Firebase
 .firebase
 firebase-config.json
+database.rules.json
 
 # Games
 games/

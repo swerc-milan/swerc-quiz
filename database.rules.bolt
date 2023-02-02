@@ -1,0 +1,48 @@
+isAdmin() {
+    auth != null
+        && root.child("users").child(auth.uid).child("isAdmin").val() == true
+}
+
+isMine(uid) {
+    auth != null && auth.uid == uid
+}
+
+createOnly(value) {
+    prior(value) == null && value != null
+}
+
+path /users {
+    read() { true }
+    write() { isAdmin() }
+}
+
+path /state {
+    read() { true }
+    write() { isAdmin() }
+}
+
+path /admin {
+    read() { isAdmin() }
+    write() { isAdmin() }
+}
+
+path /answers/{game}/{question}/{uid} is Answer {
+    read() { isAdmin() }
+    write() {
+        isAdmin() ||
+        (
+            isMine(uid)
+            && createOnly(this)
+            && root.child("state").child("kind").val() == "questionOpen"
+            && root.child("state").child("gameId").val() == game
+            && root.child("state").child("questionId").val() == question
+        )
+    }
+}
+
+type Answer {
+    validate() { this.ts == now }
+
+    ts: Number,
+    answerId: String
+}
