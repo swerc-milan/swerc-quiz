@@ -8,6 +8,7 @@ import { PendingStart } from "./states/PendingStart";
 import { cancelGame } from "lib/admin";
 import { NextQuestionSoon } from "./states/NextQuestionSoon";
 import { QuestionOpen } from "./states/QuestionOpen";
+import { PendingReveal } from "./states/PendingReveal";
 
 export function CurrentStateActions() {
   const [state, stateLoading, stateError] = useObjectVal<State>(
@@ -44,5 +45,7 @@ export function CurrentStateActions() {
       return <NextQuestionSoon state={state} game={game} />;
     case "questionOpen":
       return <QuestionOpen state={state} game={game} />;
+    case "pendingReveal":
+      return <PendingReveal state={state} game={game} />;
   }
 }

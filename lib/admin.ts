@@ -55,3 +55,19 @@ export function openQuestion(
   if (layout) newState.layout = layout;
   set(ref(database, "state"), newState);
 }
+
+export function closeQuestion(
+  gameId: string,
+  questionId: string,
+  index: number,
+  startTime: number
+) {
+  const newState: States.PendingReveal = {
+    kind: "pendingReveal",
+    gameId,
+    questionId,
+    index,
+    startTime,
+  };
+  set(ref(database, "state"), newState);
+}
