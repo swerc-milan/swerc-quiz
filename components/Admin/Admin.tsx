@@ -7,6 +7,7 @@ import styles from "./Admin.module.css";
 import { Navbar } from "components/Navbar/Navbar";
 import { CurrentState } from "./pieces/CurrentState";
 import { CurrentStateActions } from "./pieces/CurrentStateActions";
+import { ImportGame } from "components/ImportGame/ImportGame";
 
 export function Admin() {
   const [user, loading] = useAuthState(auth);
@@ -39,9 +40,16 @@ function AdminLoggedIn({ uid }: { uid: string }) {
   return (
     <>
       <Navbar />
-      <CurrentState uid={uid} />
-      <h2>Actions</h2>
-      <CurrentStateActions />
+      <div className={styles.content}>
+        <CurrentState uid={uid} />
+        <h2>Actions</h2>
+        <CurrentStateActions />
+        <h2>Import data</h2>
+        <details>
+          <summary>Import game</summary>
+          <ImportGame />
+        </details>
+      </div>
     </>
   );
 }

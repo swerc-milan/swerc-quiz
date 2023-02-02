@@ -9,3 +9,7 @@
   max-width: 80%;
   cursor: pointer;
 }
+
+.content {
+  padding-bottom: 3rem;
+}

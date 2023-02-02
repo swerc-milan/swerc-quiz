@@ -2,6 +2,11 @@ import { ref, set, serverTimestamp } from "firebase/database";
 import { database } from "./firebase";
 import { Answer, Rank, States } from "./types";
 
+export function importGame(gameData: any) {
+  console.log(gameData);
+  if (gameData.id) set(ref(database, `admin/games/${gameData.id}`), gameData);
+}
+
 export function makePendingGame(gameName: string | null, gameId: string) {
   const newState: States.PendingStart = {
     kind: "pendingStart",
