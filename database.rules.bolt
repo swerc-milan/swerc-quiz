@@ -26,6 +26,10 @@ path /admin {
     write() { isAdmin() }
 }
 
+path /admin/games/{game}/questions/{question} is Question {
+
+}
+
 path /answers/{game}/{question}/{uid} is Answer {
     read() { isAdmin() }
     write() {
@@ -45,4 +49,8 @@ type Answer {
 
     ts: Number,
     answerId: String
+}
+
+type Question {
+    validate() { newData.hasChildren(['id']) && newData.child("id").isString() }
 }

@@ -6,6 +6,7 @@ import { ErrorView } from "components/ErrorView/ErrorView";
 import { NoGame } from "./states/NoGame";
 import { PendingStart } from "./states/PendingStart";
 import { cancelGame } from "lib/admin";
+import { NextQuestionSoon } from "./states/NextQuestionSoon";
 
 export function CurrentStateActions() {
   const [state, stateLoading, stateError] = useObjectVal<State>(
@@ -24,19 +25,21 @@ export function CurrentStateActions() {
   if (!state) {
     return <NoGame games={games} />;
   }
-  if (!state.id || !(state.id in games)) {
+  if (!state.gameId || !(state.gameId in games)) {
     return (
       <>
-        <ErrorView error={`Game ${state.id ?? "<missing id>"} not found`} />
+        <ErrorView error={`Game ${state.gameId ?? "<missing id>"} not found`} />
         <button onClick={() => cancelGame()}>Reset</button>
       </>
     );
   }
 
-  const game = games[state.id];
+  const game = games[state.gameId];
 
   switch (state.kind) {
     case "pendingStart":
       return <PendingStart state={state} game={game} />;
+    case "nextQuestionSoon":
+      return <NextQuestionSoon state={state} game={game} />;
   }
 }

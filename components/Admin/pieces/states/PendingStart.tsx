@@ -1,4 +1,4 @@
-import { cancelGame } from "lib/admin";
+import { cancelGame, prepareNextQuestion } from "lib/admin";
 import { Game, States } from "lib/types";
 
 export function PendingStart({
@@ -8,11 +8,30 @@ export function PendingStart({
   state: States.PendingStart;
   game: Game;
 }) {
+  const start = () => {
+    if (!game.questions || game.questions.length === 0) return;
+    if (!state.gameId) return;
+
+    const question = game.questions[0];
+    prepareNextQuestion(
+      state.gameId,
+      question.id,
+      0,
+      question.topic,
+      question.time
+    );
+  };
+
   return (
     <>
       <p>{state.name ?? "A game"} is ready to start.</p>
       <div>
-        <button>Start</button>{" "}
+        <button
+          disabled={!game.questions || game.questions.length === 0}
+          onClick={() => start()}
+        >
+          Start
+        </button>{" "}
         <button onClick={() => cancelGame()}>Cancel</button>
       </div>
       <GameSummary game={game} />

@@ -3,6 +3,7 @@ import { ref } from "firebase/database";
 import { database } from "lib/firebase";
 import { State } from "lib/types";
 import { useObjectVal } from "react-firebase-hooks/database";
+import { NextQuestionSoon } from "./states/NextQuestionSoon/NextQuestionSoon";
 import { NoGame } from "./states/NoGame/NoGame";
 import { PendingStart } from "./states/PendingStart/PendingStart";
 
@@ -20,6 +21,8 @@ function GameInner({ uid, state }: { uid: string; state: State }) {
   switch (state.kind) {
     case "pendingStart":
       return <PendingStart uid={uid} state={state} />;
+    case "nextQuestionSoon":
+      return <NextQuestionSoon uid={uid} state={state} />;
     default:
       return <div>Unknown state</div>;
   }

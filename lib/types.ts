@@ -8,13 +8,24 @@ export namespace States {
   export type NoGame = null;
   export type PendingStart = {
     kind: "pendingStart";
-    id?: string;
+    gameId?: string;
     name?: string;
+  };
+  export type NextQuestionSoon = {
+    kind: "nextQuestionSoon";
+    gameId?: string;
+    questionId?: string;
+    index?: number;
+    topic?: string;
+    time?: number;
   };
 }
 
 // /state
-export type State = States.NoGame | States.PendingStart;
+export type State =
+  | States.NoGame
+  | States.PendingStart
+  | States.NextQuestionSoon;
 
 // /admin/games
 export type Games = Record<string, Game>;
@@ -27,7 +38,9 @@ export type Game = {
 
 // /admin/games/:id/questions[i]
 export type Question = {
-  id?: string;
+  id: string;
+  index?: number;
   topic?: string;
   text?: string;
+  time?: number;
 };
