@@ -120,3 +120,19 @@ export function prepareFinalRanking(gameId: string, questionId: string) {
   };
   set(ref(database, "state"), newState);
 }
+
+export function showFinalRanking(
+  gameId: string,
+  questionId: string,
+  ranking: Ranking[],
+  hideFirst: number
+) {
+  const newState: States.FinalRanking = {
+    kind: "finalRanking",
+    gameId,
+    questionId,
+    ranking,
+    hideFirst,
+  };
+  set(ref(database, "state"), newState);
+}

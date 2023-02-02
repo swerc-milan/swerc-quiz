@@ -60,6 +60,13 @@ export namespace States {
     gameId?: string;
     questionId?: string;
   };
+  export type FinalRanking = {
+    kind: "finalRanking";
+    gameId?: string;
+    questionId?: string;
+    ranking?: Ranking[];
+    hideFirst?: number;
+  };
 }
 
 // /state
@@ -71,7 +78,8 @@ export type State =
   | States.PendingReveal
   | States.QuestionReveal
   | States.CurrentRanking
-  | States.PendingFinalRanking;
+  | States.PendingFinalRanking
+  | States.FinalRanking;
 
 // /admin/games
 export type Games = Record<string, Game>;

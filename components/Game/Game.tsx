@@ -4,6 +4,7 @@ import { database } from "lib/firebase";
 import { State } from "lib/types";
 import { useObjectVal } from "react-firebase-hooks/database";
 import { CurrentRanking } from "./states/CurrentRanking/CurrentRanking";
+import { FinalRanking } from "./states/FinalRanking/FinalRanking";
 import { NextQuestionSoon } from "./states/NextQuestionSoon/NextQuestionSoon";
 import { NoGame } from "./states/NoGame/NoGame";
 import { PendingFinalRanking } from "./states/PendingFinalRanking/PendingFinalRanking";
@@ -38,6 +39,8 @@ function GameInner({ uid, state }: { uid: string; state: State }) {
       return <CurrentRanking uid={uid} state={state} />;
     case "pendingFinalRanking":
       return <PendingFinalRanking uid={uid} state={state} />;
+    case "finalRanking":
+      return <FinalRanking uid={uid} state={state} />;
     default:
       return (
         <div>
