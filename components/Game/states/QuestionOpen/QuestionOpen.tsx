@@ -5,6 +5,7 @@ import { submitAnswer } from "lib/game";
 import { useObjectVal } from "react-firebase-hooks/database";
 import { ref } from "firebase/database";
 import { database } from "lib/firebase";
+import { Timer } from "components/Timer/Timer";
 
 export function QuestionOpen({
   uid,
@@ -25,7 +26,14 @@ export function QuestionOpen({
     <div>
       <div className={styles.header}>
         <div className={styles.questionNumber}>Question {index}</div>
-        <div className={styles.timer}>(timer)</div>
+        {state.time && state.startTime && (
+          <div className={styles.timer}>
+            <Timer
+              startTimestamp={state.startTime}
+              duration={state.time * 1000}
+            />
+          </div>
+        )}
       </div>
       <div className={styles.text}>{state.text}</div>
       <div
