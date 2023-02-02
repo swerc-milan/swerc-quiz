@@ -1,10 +1,6 @@
-import admin from "firebase-admin";
-import { initializeApp } from "firebase-admin/app";
-import { getAuth } from "firebase-admin/auth";
-import { getDatabase } from "firebase-admin/database";
 import fs from "fs";
 import crypto from "crypto";
-import { ref, set } from "firebase/database";
+import { auth, db } from "./utils";
 
 type Users = {
   users: User[];
@@ -14,19 +10,6 @@ type User = {
   password: string;
   name: string;
 };
-
-const firebaseConfig = JSON.parse(
-  fs.readFileSync("./firebase-config.json").toString()
-);
-const serviceAccountConfig = JSON.parse(
-  fs.readFileSync("./adminsdk.json").toString()
-);
-const app = initializeApp({
-  credential: admin.credential.cert(serviceAccountConfig),
-  databaseURL: firebaseConfig.databaseURL,
-});
-const auth = getAuth(app);
-const db = getDatabase(app);
 
 const usersJson = fs.readFileSync(0, "utf-8");
 const users = JSON.parse(usersJson) as Users;
