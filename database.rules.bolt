@@ -55,6 +55,11 @@ path /ranking {
 
 path /ranking/{game}/{question}/{index} is Ranking {}
 
+path /images/{image} is Image {
+    read() { true }
+    write() { isAdmin() }
+}
+
 type Submission {
     validate() { this.ts == now }
 
@@ -76,4 +81,9 @@ type Ranking {
     rank: Number,
     score: Number,
     delta: Number
+}
+
+type Image {
+    kind: String | Null,
+    url: String
 }

@@ -35,6 +35,7 @@ export function NextQuestionSoon({
               index,
               question.answers ?? [],
               question.text,
+              question.imageId,
               question.time,
               question.layout
             );

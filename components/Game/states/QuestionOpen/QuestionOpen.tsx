@@ -26,7 +26,7 @@ export function QuestionOpen({
         time={state.time}
         startTime={state.startTime}
       />
-      <QuestionText text={state.text} />
+      <QuestionText text={state.text} imageId={state.imageId} />
       <AnswersLayout
         layout={layout}
         answers={state.answers}

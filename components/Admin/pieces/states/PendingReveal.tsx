@@ -104,6 +104,7 @@ export function PendingReveal({
                   question.id,
                   index,
                   question.text,
+                  question.imageId,
                   question.layout,
                   question.answers,
                   correctAnswer.id

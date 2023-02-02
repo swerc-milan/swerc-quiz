@@ -39,6 +39,7 @@ export function openQuestion(
   index: number,
   answers: Answer[],
   text?: string,
+  imageId?: string,
   time?: number,
   layout?: "list" | "grid"
 ) {
@@ -51,6 +52,7 @@ export function openQuestion(
     startTime: serverTimestamp(),
   };
   if (text) newState.text = text;
+  if (imageId) newState.imageId = imageId;
   if (time) newState.time = time;
   if (layout) newState.layout = layout;
   set(ref(database, "state"), newState);
@@ -77,6 +79,7 @@ export function revealQuestion(
   questionId: string,
   index: number,
   text?: string,
+  imageId?: string,
   layout?: "list" | "grid",
   answers?: Answer[],
   correctAnswerId?: string
@@ -88,6 +91,7 @@ export function revealQuestion(
     index,
   };
   if (text) newState.text = text;
+  if (imageId) newState.imageId = imageId;
   if (layout) newState.layout = layout;
   if (answers) newState.answers = answers;
   if (correctAnswerId) newState.correctAnswerId = correctAnswerId;

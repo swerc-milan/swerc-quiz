@@ -25,6 +25,7 @@ export namespace States {
     questionId?: string;
     index?: number;
     text?: string;
+    imageId?: string;
     time?: number;
     layout?: "list" | "grid";
     answers?: Answer[];
@@ -43,6 +44,7 @@ export namespace States {
     questionId?: string;
     index?: number;
     text?: string;
+    imageId?: string;
     layout?: "list" | "grid";
     answers?: Answer[];
     correctAnswerId?: string;
@@ -96,6 +98,7 @@ export type Question = {
   index?: number;
   topic?: string;
   text?: string;
+  imageId?: string;
   time?: number;
   layout?: "list" | "grid";
   answers?: Answer[];
@@ -121,4 +124,10 @@ export type Ranking = {
   rank: number;
   score: number;
   delta: number;
+};
+
+// /images/:id
+export type Image = {
+  kind?: "img";
+  url: string;
 };

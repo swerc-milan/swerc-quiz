@@ -22,7 +22,7 @@ export function QuestionReveal({
   return (
     <div>
       <GameHeader index={state.index} />
-      <QuestionText text={state.text} />
+      <QuestionText text={state.text} imageId={state.imageId} />
       <AnswersLayout
         layout={layout}
         answers={state.answers}
