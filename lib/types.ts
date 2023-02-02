@@ -19,13 +19,25 @@ export namespace States {
     topic?: string;
     time?: number;
   };
+  export type QuestionOpen<Timestamp = number> = {
+    kind: "questionOpen";
+    gameId?: string;
+    questionId?: string;
+    index?: number;
+    text?: string;
+    time?: number;
+    layout?: "list" | "grid";
+    answers?: Answer[];
+    startTime?: Timestamp;
+  };
 }
 
 // /state
 export type State =
   | States.NoGame
   | States.PendingStart
-  | States.NextQuestionSoon;
+  | States.NextQuestionSoon
+  | States.QuestionOpen;
 
 // /admin/games
 export type Games = Record<string, Game>;

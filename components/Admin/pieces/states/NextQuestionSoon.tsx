@@ -1,4 +1,5 @@
 import { ErrorView } from "components/ErrorView/ErrorView";
+import { openQuestion } from "lib/admin";
 import { Game, States } from "lib/types";
 
 export function NextQuestionSoon({
@@ -9,19 +10,37 @@ export function NextQuestionSoon({
   game: Game;
 }) {
   if (!game.questions) return <ErrorView error="Game has no questions" />;
-  if (state.index === undefined)
+  const gameId = state.gameId;
+  if (!gameId) return <ErrorView error="Missing game id" />;
+  const index = state.index;
+  if (index === undefined)
     return <ErrorView error="Missing current question index" />;
-  if (state.index >= game.questions.length)
+  if (index >= game.questions.length)
     return <ErrorView error="Invalid question index" />;
 
-  const question = game.questions[state.index];
+  const question = game.questions[index];
+
   return (
     <div>
       <p>
-        The question <strong>{state.index + 1}</strong> is ready to start.
+        The question <strong>{index + 1}</strong> is ready to start.
       </p>
       <div>
-        <button>Start timer</button>
+        <button
+          onClick={() => {
+            openQuestion(
+              gameId,
+              question.id,
+              index,
+              question.answers ?? [],
+              question.text,
+              question.time,
+              question.layout
+            );
+          }}
+        >
+          Start timer
+        </button>
       </div>
       <div>
         <h3>Question details</h3>
