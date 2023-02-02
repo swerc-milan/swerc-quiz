@@ -1,5 +1,5 @@
 import { makePendingGame } from "lib/admin";
-import { Games } from "lib/types";
+import { Game, Games } from "lib/types";
 
 export function NoGame({ games }: { games: Games }) {
   return (
@@ -8,12 +8,31 @@ export function NoGame({ games }: { games: Games }) {
       <ul>
         {Object.entries(games ?? {}).map(([gameId, game]) => (
           <li key={gameId}>
-            <button onClick={() => makePendingGame(game.name ?? null)}>
-              {game.name ?? "<unnamed>"}
-            </button>
+            <SelectGame gameId={gameId} game={game} />
           </li>
         ))}
       </ul>
+    </>
+  );
+}
+
+function SelectGame({ game, gameId }: { game: Game; gameId: string }) {
+  return (
+    <>
+      <div>
+        <button onClick={() => makePendingGame(game.name ?? null, gameId)}>
+          {game.name ?? "<unnamed>"}
+        </button>
+      </div>
+      {game.questions && game.questions.length > 0 && (
+        <ul>
+          {game.questions.map((question, index) => (
+            <li key={question.id ?? index}>
+              {question.text ?? "<missing text>"}
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   );
 }
