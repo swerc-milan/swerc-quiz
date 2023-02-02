@@ -12,9 +12,43 @@
 .isCorrectAnswer {
   background-color: #8ae59f;
   color: #155724;
+  border-color: #155724;
+  border-width: 8px;
 }
 
 .isWrongAnswer {
   background-color: #eba1a7;
   color: #721c24;
+  border-color: #721c24;
+  border-width: 8px;
+}
+
+.withPercentage.isCorrectAnswer {
+  background: repeating-linear-gradient(
+    90deg,
+    #8ae59f,
+    #8ae59f calc(var(--percentage) - 0.1%),
+    white calc(var(--percentage) + 0.1%),
+    white 100%
+  );
+}
+
+.withPercentage.isWrongAnswer {
+  background: repeating-linear-gradient(
+    90deg,
+    #eba1a7,
+    #eba1a7 calc(var(--percentage) - 0.1%),
+    white calc(var(--percentage) + 0.1%),
+    white 100%
+  );
+}
+
+.withPercentage {
+  background: repeating-linear-gradient(
+    90deg,
+    #c0bebe,
+    #c0bebe calc(var(--percentage) - 0.1%),
+    white calc(var(--percentage) + 0.1%),
+    white 100%
+  );
 }

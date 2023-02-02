@@ -12,6 +12,7 @@ export function AnswerButton({
   isSubmittedAnswer,
   isCorrectAnswer,
   isWrongAnswer,
+  percentage,
 }: {
   gameId: string;
   questionId: string;
@@ -22,6 +23,7 @@ export function AnswerButton({
   isSubmittedAnswer: boolean;
   isCorrectAnswer: boolean;
   isWrongAnswer: boolean;
+  percentage?: number;
 }) {
   return (
     <button
@@ -29,7 +31,15 @@ export function AnswerButton({
         [styles.isSubmittedAnswer]: isSubmittedAnswer,
         [styles.isCorrectAnswer]: isCorrectAnswer,
         [styles.isWrongAnswer]: isWrongAnswer,
+        [styles.withPercentage]: percentage !== undefined,
       })}
+      style={
+        percentage !== undefined
+          ? ({
+              "--percentage": `${percentage * 100}%` ?? "0",
+            } as React.CSSProperties)
+          : {}
+      }
       onClick={() => submitAnswer(gameId, questionId, uid, answerId)}
       disabled={answered}
     >

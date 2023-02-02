@@ -11,6 +11,7 @@ export function AnswersLayout({
   uid,
   submissionAnswerId,
   correctAnswerId,
+  answerCounts,
 }: {
   layout: "list" | "grid";
   answers?: Answer[];
@@ -19,7 +20,13 @@ export function AnswersLayout({
   uid: string;
   submissionAnswerId?: string;
   correctAnswerId?: string;
+  answerCounts?: Record<string, number>;
 }) {
+  const numAnswers = Object.values(answerCounts ?? {}).reduce(
+    (sum, count) => sum + count,
+    0
+  );
+  console.log(numAnswers, answerCounts);
   return (
     <div
       className={classnames(styles.answers, {
@@ -43,6 +50,11 @@ export function AnswersLayout({
             correctAnswerId !== undefined &&
             submissionAnswerId !== correctAnswerId &&
             submissionAnswerId === answer.id
+          }
+          percentage={
+            numAnswers > 0
+              ? (answerCounts?.[answer.id ?? ""] ?? 0) / numAnswers
+              : undefined
           }
         />
       ))}

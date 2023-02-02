@@ -18,6 +18,7 @@ export function QuestionReveal({
   );
   const submissionAnswerId = submission?.answerId;
   const layout = state.layout ?? "list";
+  const answerCounts = state.answerCounts ?? {};
 
   return (
     <div>
@@ -31,6 +32,7 @@ export function QuestionReveal({
         uid={uid}
         submissionAnswerId={submissionAnswerId}
         correctAnswerId={state.correctAnswerId}
+        answerCounts={answerCounts}
       />
     </div>
   );

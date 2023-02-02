@@ -48,6 +48,7 @@ export namespace States {
     layout?: "list" | "grid";
     answers?: Answer[];
     correctAnswerId?: string;
+    answerCounts?: Record<string, number>;
   };
   export type CurrentRanking = {
     kind: "currentRanking";

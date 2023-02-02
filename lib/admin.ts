@@ -82,7 +82,8 @@ export function revealQuestion(
   imageId?: string,
   layout?: "list" | "grid",
   answers?: Answer[],
-  correctAnswerId?: string
+  correctAnswerId?: string,
+  answerCounts?: Record<string, number>
 ) {
   const newState: States.QuestionReveal = {
     kind: "questionReveal",
@@ -95,6 +96,7 @@ export function revealQuestion(
   if (layout) newState.layout = layout;
   if (answers) newState.answers = answers;
   if (correctAnswerId) newState.correctAnswerId = correctAnswerId;
+  if (answerCounts) newState.answerCounts = answerCounts;
   set(ref(database, "state"), newState);
 }
 

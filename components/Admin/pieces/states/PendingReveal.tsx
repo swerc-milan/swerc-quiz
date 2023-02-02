@@ -103,7 +103,8 @@ export function PendingReveal({
                   question.imageId,
                   question.layout,
                   question.answers,
-                  correctAnswer.id
+                  correctAnswer.id,
+                  ranking.answerCounts ?? {}
                 );
               }}
             >
