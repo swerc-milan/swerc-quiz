@@ -47,7 +47,9 @@ function GameSummary({ game }: { game: Game }) {
       <ol>
         {(game.questions ?? []).map((question, index) => (
           <li key={question.id ?? index}>
-            <p>{question.text ?? "<missing text>"}</p>
+            <p>
+              <em>{question.text ?? "<empty text>"}</em>
+            </p>
             {question.topic && (
               <p>
                 <strong>Topic</strong>: {question.topic}

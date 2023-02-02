@@ -43,4 +43,12 @@ export type Question = {
   topic?: string;
   text?: string;
   time?: number;
+  layout?: "list" | "grid";
+  answers?: Answer[];
+};
+
+// /admin/games/:id/questions[i]/answers[j]
+export type Answer = {
+  id?: string;
+  text?: string;
 };

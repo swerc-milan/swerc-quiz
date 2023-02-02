@@ -26,11 +26,10 @@ path /admin {
     write() { isAdmin() }
 }
 
-path /admin/games/{game}/questions/{question} is Question {
+path /admin/games/{game}/questions/{question} is Question {}
+path /admin/games/{game}/questions/{question}/answers/{answer} is Answer {}
 
-}
-
-path /answers/{game}/{question}/{uid} is Answer {
+path /answers/{game}/{question}/{uid} is Submission {
     read() { isAdmin() }
     write() {
         isAdmin() ||
@@ -44,7 +43,7 @@ path /answers/{game}/{question}/{uid} is Answer {
     }
 }
 
-type Answer {
+type Submission {
     validate() { this.ts == now }
 
     ts: Number,
@@ -53,4 +52,9 @@ type Answer {
 
 type Question {
     validate() { newData.hasChildren(['id']) && newData.child("id").isString() }
+}
+
+type Answer {
+    id: String,
+    text: String
 }
