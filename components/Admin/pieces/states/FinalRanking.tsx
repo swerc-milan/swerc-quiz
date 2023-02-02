@@ -1,4 +1,4 @@
-import { updateFinalRankingHideFirst } from "lib/admin";
+import { cancelGame, updateFinalRankingHideFirst } from "lib/admin";
 import { Game, States } from "lib/types";
 
 export function FinalRanking({
@@ -25,6 +25,14 @@ export function FinalRanking({
       ) : (
         <>
           <p>The entire ranking is visible.</p>
+          <button
+            onClick={() => {
+              if (confirm("Are you sure you want to reset EVERYTHING?"))
+                cancelGame();
+            }}
+          >
+            Reset
+          </button>
         </>
       )}
     </div>
