@@ -22,16 +22,17 @@ function SelectGame({ game, gameId }: { game: Game; gameId: string }) {
       <div>
         <button onClick={() => makePendingGame(game.name ?? null, gameId)}>
           {game.name ?? "<unnamed>"}
-        </button>
+        </button>{" "}
+        <small>({gameId})</small>
       </div>
       {game.questions && game.questions.length > 0 && (
-        <ul>
+        <ol>
           {game.questions.map((question, index) => (
             <li key={question.id ?? index}>
               {question.text ?? "<missing text>"}
             </li>
           ))}
-        </ul>
+        </ol>
       )}
     </>
   );
