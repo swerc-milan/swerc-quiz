@@ -6,12 +6,12 @@ import { GameHeader } from "components/GameHeader/GameHeader";
 import { AnswersLayout } from "components/AnswersLayout/AnswersLayout";
 import { QuestionText } from "components/QuestionText/QuestionText";
 
-export function QuestionOpen({
+export function QuestionReveal({
   uid,
   state,
 }: {
   uid: string;
-  state: States.QuestionOpen;
+  state: States.QuestionReveal;
 }) {
   const [submission] = useObjectVal<Submission>(
     ref(database, `answers/${state.gameId}/${state.questionId}/${uid}`)
@@ -21,11 +21,7 @@ export function QuestionOpen({
 
   return (
     <div>
-      <GameHeader
-        index={state.index}
-        time={state.time}
-        startTime={state.startTime}
-      />
+      <GameHeader index={state.index} />
       <QuestionText text={state.text} />
       <AnswersLayout
         layout={layout}
@@ -34,6 +30,7 @@ export function QuestionOpen({
         questionId={state.questionId ?? "?"}
         uid={uid}
         submissionAnswerId={submissionAnswerId}
+        correctAnswerId={state.correctAnswerId}
       />
     </div>
   );

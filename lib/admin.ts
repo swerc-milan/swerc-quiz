@@ -71,3 +71,25 @@ export function closeQuestion(
   };
   set(ref(database, "state"), newState);
 }
+
+export function revealQuestion(
+  gameId: string,
+  questionId: string,
+  index: number,
+  text?: string,
+  layout?: "list" | "grid",
+  answers?: Answer[],
+  correctAnswerId?: string
+) {
+  const newState: States.QuestionReveal = {
+    kind: "questionReveal",
+    gameId,
+    questionId,
+    index,
+  };
+  if (text) newState.text = text;
+  if (layout) newState.layout = layout;
+  if (answers) newState.answers = answers;
+  if (correctAnswerId) newState.correctAnswerId = correctAnswerId;
+  set(ref(database, "state"), newState);
+}

@@ -37,6 +37,16 @@ export namespace States {
     index?: number;
     startTime?: number;
   };
+  export type QuestionReveal = {
+    kind: "questionReveal";
+    gameId?: string;
+    questionId?: string;
+    index?: number;
+    text?: string;
+    layout?: "list" | "grid";
+    answers?: Answer[];
+    correctAnswerId?: string;
+  };
 }
 
 // /state
@@ -45,7 +55,8 @@ export type State =
   | States.PendingStart
   | States.NextQuestionSoon
   | States.QuestionOpen
-  | States.PendingReveal;
+  | States.PendingReveal
+  | States.QuestionReveal;
 
 // /admin/games
 export type Games = Record<string, Game>;

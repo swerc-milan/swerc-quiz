@@ -1,5 +1,6 @@
 import { ErrorView } from "components/ErrorView/ErrorView";
 import { get, ref, set } from "firebase/database";
+import { revealQuestion } from "lib/admin";
 import { database } from "lib/firebase";
 import { updateRanking } from "lib/ranking";
 import { Game, Ranking, States, Submission } from "lib/types";
@@ -91,7 +92,21 @@ export function PendingReveal({
         {newRanking ? (
           <>
             <div>Ranking is ready!</div>
-            <button>Reveal ranking</button>
+            <button
+              onClick={() => {
+                revealQuestion(
+                  gameId,
+                  question.id,
+                  index,
+                  question.text,
+                  question.layout,
+                  question.answers,
+                  correctAnswer.id
+                );
+              }}
+            >
+              Reveal correct answer
+            </button>
             <RankingPreview ranking={newRanking} />
           </>
         ) : (

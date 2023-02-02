@@ -1,0 +1,20 @@
+.answer {
+  min-height: 3.5rem;
+  padding: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.isSubmittedAnswer {
+  background-color: #f5f5f5;
+  color: #222;
+}
+
+.isCorrectAnswer {
+  background-color: #8ae59f;
+  color: #155724;
+}
+
+.isWrongAnswer {
+  background-color: #eba1a7;
+  color: #721c24;
+}

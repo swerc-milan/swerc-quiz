@@ -1,0 +1,15 @@
+.answers {
+  padding: 0 0.75rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  display: grid;
+  gap: 2rem;
+}
+
+.listLayout {
+  grid-template-columns: 1fr;
+}
+
+.gridLayout {
+  grid-template-columns: repeat(2, 1fr);
+}
