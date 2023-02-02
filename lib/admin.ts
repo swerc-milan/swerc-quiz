@@ -111,3 +111,12 @@ export function revealCurrentRanking(
   if (hideRanking) newState.hideRanking = hideRanking;
   set(ref(database, "state"), newState);
 }
+
+export function prepareFinalRanking(gameId: string, questionId: string) {
+  const newState: States.PendingFinalRanking = {
+    kind: "pendingFinalRanking",
+    gameId,
+    questionId,
+  };
+  set(ref(database, "state"), newState);
+}

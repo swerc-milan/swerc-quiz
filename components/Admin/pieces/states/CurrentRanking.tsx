@@ -2,7 +2,7 @@ import { ErrorView } from "components/ErrorView/ErrorView";
 import { QuestionPreview } from "components/QuestionPreview/QuestionPreview";
 import { RankingPreview } from "components/RankingPreview/RankingPreview";
 import { ref } from "firebase/database";
-import { prepareNextQuestion } from "lib/admin";
+import { prepareFinalRanking, prepareNextQuestion } from "lib/admin";
 import { database } from "lib/firebase";
 import { Game, Ranking, States } from "lib/types";
 import { useObjectVal } from "react-firebase-hooks/database";
@@ -59,6 +59,13 @@ export function CurrentRanking({
       ) : (
         <>
           <p>This was the last question.</p>
+          <button
+            onClick={() => {
+              prepareFinalRanking(gameId, questionId);
+            }}
+          >
+            Start the hype
+          </button>
         </>
       )}
 

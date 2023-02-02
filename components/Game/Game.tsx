@@ -6,6 +6,7 @@ import { useObjectVal } from "react-firebase-hooks/database";
 import { CurrentRanking } from "./states/CurrentRanking/CurrentRanking";
 import { NextQuestionSoon } from "./states/NextQuestionSoon/NextQuestionSoon";
 import { NoGame } from "./states/NoGame/NoGame";
+import { PendingFinalRanking } from "./states/PendingFinalRanking/PendingFinalRanking";
 import { PendingReveal } from "./states/PendingReveal/PendingReveal";
 import { PendingStart } from "./states/PendingStart/PendingStart";
 import { QuestionOpen } from "./states/QuestionOpen/QuestionOpen";
@@ -35,6 +36,8 @@ function GameInner({ uid, state }: { uid: string; state: State }) {
       return <QuestionReveal uid={uid} state={state} />;
     case "currentRanking":
       return <CurrentRanking uid={uid} state={state} />;
+    case "pendingFinalRanking":
+      return <PendingFinalRanking uid={uid} state={state} />;
     default:
       return (
         <div>

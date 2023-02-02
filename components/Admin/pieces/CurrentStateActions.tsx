@@ -11,6 +11,7 @@ import { QuestionOpen } from "./states/QuestionOpen";
 import { PendingReveal } from "./states/PendingReveal";
 import { QuestionReveal } from "./states/QuestionReveal";
 import { CurrentRanking } from "./states/CurrentRanking";
+import { PendingFinalRanking } from "./states/PendingFinalRanking";
 
 export function CurrentStateActions() {
   const [state, stateLoading, stateError] = useObjectVal<State>(
@@ -53,5 +54,7 @@ export function CurrentStateActions() {
       return <QuestionReveal state={state} game={game} />;
     case "currentRanking":
       return <CurrentRanking state={state} game={game} />;
+    case "pendingFinalRanking":
+      return <PendingFinalRanking state={state} game={game} />;
   }
 }
