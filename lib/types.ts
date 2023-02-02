@@ -65,6 +65,7 @@ export type Question = {
   time?: number;
   layout?: "list" | "grid";
   answers?: Answer[];
+  correctAnswerId?: string;
 };
 
 // /admin/games/:id/questions[i]/answers[j]
@@ -77,4 +78,12 @@ export type Answer = {
 export type Submission = {
   ts: number;
   answerId: string;
+};
+
+// /ranking/:gameId/:questionId
+export type Ranking = {
+  uid: string;
+  rank: number;
+  score: number;
+  delta: number;
 };

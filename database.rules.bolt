@@ -29,6 +29,11 @@ path /admin {
 path /admin/games/{game}/questions/{question} is Question {}
 path /admin/games/{game}/questions/{question}/answers/{answer} is Answer {}
 
+path /answers {
+    read() { isAdmin() }
+    write() { isAdmin() }
+}
+
 path /answers/{game}/{question}/{uid} is Submission {
     read() { isAdmin() || isMine(uid) }
     write() {
@@ -42,6 +47,13 @@ path /answers/{game}/{question}/{uid} is Submission {
         )
     }
 }
+
+path /ranking {
+    read() { true }
+    write() { isAdmin() }
+}
+
+path /ranking/{game}/{question}/{index} is Ranking {}
 
 type Submission {
     validate() { this.ts == now }
@@ -57,4 +69,11 @@ type Question {
 type Answer {
     id: String,
     text: String
+}
+
+type Ranking {
+    uid: String,
+    rank: Number,
+    score: Number,
+    delta: Number
 }
