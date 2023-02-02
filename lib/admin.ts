@@ -1,6 +1,6 @@
 import { ref, set, serverTimestamp } from "firebase/database";
 import { database } from "./firebase";
-import { Answer, States } from "./types";
+import { Answer, Ranking, States } from "./types";
 
 export function makePendingGame(gameName: string | null, gameId: string) {
   const newState: States.PendingStart = {
@@ -91,5 +91,23 @@ export function revealQuestion(
   if (layout) newState.layout = layout;
   if (answers) newState.answers = answers;
   if (correctAnswerId) newState.correctAnswerId = correctAnswerId;
+  set(ref(database, "state"), newState);
+}
+
+export function revealCurrentRanking(
+  gameId: string,
+  questionId: string,
+  index: number,
+  ranking: Ranking[],
+  hideRanking?: boolean
+) {
+  const newState: States.CurrentRanking = {
+    kind: "currentRanking",
+    gameId,
+    questionId,
+    index,
+    ranking,
+  };
+  if (hideRanking) newState.hideRanking = hideRanking;
   set(ref(database, "state"), newState);
 }

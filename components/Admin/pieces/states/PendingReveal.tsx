@@ -1,4 +1,5 @@
 import { ErrorView } from "components/ErrorView/ErrorView";
+import { RankingPreview } from "components/RankingPreview/RankingPreview";
 import { get, ref, set } from "firebase/database";
 import { revealQuestion } from "lib/admin";
 import { database } from "lib/firebase";
@@ -114,24 +115,5 @@ export function PendingReveal({
         )}
       </div>
     </div>
-  );
-}
-
-function RankingPreview({ ranking }: { ranking: Ranking[] }) {
-  const [usersSnapshot, usersLoading, usersError] = useObject(
-    ref(database, "users")
-  );
-  if (usersLoading) return <div>Loading users...</div>;
-  if (usersError) return <ErrorView error={usersError} />;
-  const users = usersSnapshot?.val() ?? {};
-
-  return (
-    <ol>
-      {ranking.map((r) => (
-        <li key={r.uid} value={r.rank}>
-          {users[r.uid]?.name ?? r.uid} {r.score} (+{r.delta})
-        </li>
-      ))}
-    </ol>
   );
 }

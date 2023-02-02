@@ -47,6 +47,14 @@ export namespace States {
     answers?: Answer[];
     correctAnswerId?: string;
   };
+  export type CurrentRanking = {
+    kind: "currentRanking";
+    gameId?: string;
+    questionId?: string;
+    index?: number;
+    ranking?: Ranking[];
+    hideRanking?: boolean;
+  };
 }
 
 // /state
@@ -56,7 +64,8 @@ export type State =
   | States.NextQuestionSoon
   | States.QuestionOpen
   | States.PendingReveal
-  | States.QuestionReveal;
+  | States.QuestionReveal
+  | States.CurrentRanking;
 
 // /admin/games
 export type Games = Record<string, Game>;
@@ -77,6 +86,7 @@ export type Question = {
   layout?: "list" | "grid";
   answers?: Answer[];
   correctAnswerId?: string;
+  hideRanking?: boolean;
 };
 
 // /admin/games/:id/questions[i]/answers[j]
