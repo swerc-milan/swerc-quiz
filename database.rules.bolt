@@ -30,7 +30,7 @@ path /admin/games/{game}/questions/{question} is Question {}
 path /admin/games/{game}/questions/{question}/answers/{answer} is Answer {}
 
 path /answers/{game}/{question}/{uid} is Submission {
-    read() { isAdmin() }
+    read() { isAdmin() || isMine(uid) }
     write() {
         isAdmin() ||
         (

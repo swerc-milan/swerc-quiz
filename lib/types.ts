@@ -64,3 +64,9 @@ export type Answer = {
   id?: string;
   text?: string;
 };
+
+// /answers/:gameId/:questionId/:uid
+export type Submission = {
+  ts: number;
+  answerId: string;
+};
