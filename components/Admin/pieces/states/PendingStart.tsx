@@ -1,24 +1,13 @@
-import { ErrorView } from "components/ErrorView/ErrorView";
-import { ref } from "firebase/database";
 import { cancelGame } from "lib/admin";
-import { database } from "lib/firebase";
 import { Game, States } from "lib/types";
-import { useObjectVal } from "react-firebase-hooks/database";
 
-export function PendingStart({ state }: { state: States.PendingStart }) {
-  const [game, gameLoading, gameError] = useObjectVal<Game>(
-    ref(database, `admin/games/${state.id}`)
-  );
-
-  if (gameLoading) return <div>Loading...</div>;
-  if (gameError) return <ErrorView error={gameError} />;
-  if (!game)
-    return (
-      <div>
-        Game not found <button onClick={() => cancelGame()}>Reset</button>
-      </div>
-    );
-
+export function PendingStart({
+  state,
+  game,
+}: {
+  state: States.PendingStart;
+  game: Game;
+}) {
   return (
     <>
       <p>{state.name ?? "A game"} is ready to start.</p>
