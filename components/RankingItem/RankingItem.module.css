@@ -8,6 +8,11 @@
   align-items: center;
   row-gap: 0.1rem;
   column-gap: 1rem;
+  border: 1px solid transparent;
+}
+
+.isMe {
+  border: 1px dashed #777;
 }
 
 .rank {

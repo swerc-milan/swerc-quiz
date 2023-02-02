@@ -23,6 +23,7 @@ export function CurrentRanking({
 
   const index = state.index === undefined ? state.index : state.index + 1;
   const myRanking = state.ranking?.find((r) => r.uid === uid);
+  const hidden = state.hideRanking ?? false;
 
   return (
     <div className={styles.container}>
@@ -34,9 +35,10 @@ export function CurrentRanking({
             <RankingItem
               key={item.uid}
               item={item}
-              hideName={state.hideRanking ?? false}
+              hideName={hidden}
               users={users ?? {}}
               index={index}
+              isMe={item.uid === uid && !hidden}
             />
           ))}
       </div>
@@ -48,6 +50,7 @@ export function CurrentRanking({
             hideName={false}
             users={users ?? {}}
             index={0}
+            isMe
           />
         </div>
       )}

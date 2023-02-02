@@ -75,13 +75,15 @@ export function updateRanking(
 function updateRank(ranking: Record<string, Ranking>) {
   const sorted = Object.values(ranking).sort((a, b) => compare(a, b));
   let rank = 0;
+  let index = 0;
   let score = Infinity;
   for (const player of sorted) {
     if (player.score < score) {
-      rank++;
+      rank = index + 1;
       score = player.score;
     }
     player.rank = rank;
+    index++;
   }
   return sorted;
 }

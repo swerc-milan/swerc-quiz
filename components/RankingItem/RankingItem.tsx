@@ -20,16 +20,18 @@ export function RankingItem({
   hideName,
   users,
   index,
+  isMe,
 }: {
   item: Ranking;
   hideName: boolean;
   users: Record<string, User>;
   index: number;
+  isMe: boolean;
 }) {
   const user = users[item.uid] ?? { name: "Unknown" };
   const name = hideName ? HIDDEN_NAMES[index % HIDDEN_NAMES.length] : user.name;
   return (
-    <div className={styles.item}>
+    <div className={classNames(styles.item, { [styles.isMe]: isMe })}>
       <div className={styles.rank}>#{item.rank}</div>
       <div className={styles.score}>{item.score}</div>
       <div className={styles.delta}>+{item.delta}</div>
