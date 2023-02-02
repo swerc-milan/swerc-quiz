@@ -3,6 +3,7 @@ import { ref } from "firebase/database";
 import { database } from "lib/firebase";
 import { State } from "lib/types";
 import { useObjectVal } from "react-firebase-hooks/database";
+import { CurrentRanking } from "./states/CurrentRanking/CurrentRanking";
 import { NextQuestionSoon } from "./states/NextQuestionSoon/NextQuestionSoon";
 import { NoGame } from "./states/NoGame/NoGame";
 import { PendingReveal } from "./states/PendingReveal/PendingReveal";
@@ -32,7 +33,16 @@ function GameInner({ uid, state }: { uid: string; state: State }) {
       return <PendingReveal uid={uid} state={state} />;
     case "questionReveal":
       return <QuestionReveal uid={uid} state={state} />;
+    case "currentRanking":
+      return <CurrentRanking uid={uid} state={state} />;
     default:
-      return <div>Unknown state</div>;
+      return (
+        <div>
+          Unknown state:{" "}
+          <div>
+            <pre>{JSON.stringify(state, undefined, 2)}</pre>
+          </div>
+        </div>
+      );
   }
 }

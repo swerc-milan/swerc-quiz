@@ -1,0 +1,27 @@
+.container {
+  width: 100%;
+  padding: 1rem;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.ranking {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.myRanking {
+  margin-top: 4rem;
+}
+
+.myRankingTitle {
+  text-align: center;
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
