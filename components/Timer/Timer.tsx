@@ -1,7 +1,11 @@
+import classNames from "classnames";
 import { ref } from "firebase/database";
 import { database } from "lib/firebase";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useObjectVal } from "react-firebase-hooks/database";
+import styles from "./Timer.module.css";
+
+const WARNING_TIME = 5;
 
 export function getRemainingTime(
   startTimestamp: number,
@@ -42,6 +46,17 @@ export function Timer({
   }
 
   return (
-    <div>{remaining > 3 ? remaining | 0 : remaining.toFixed(1)} seconds</div>
+    <div
+      className={classNames(styles.timer, {
+        [styles.warning]: remaining <= WARNING_TIME,
+      })}
+      style={
+        {
+          "--percentage": (100 * remaining * 1000) / duration,
+        } as React.CSSProperties
+      }
+    >
+      {remaining <= WARNING_TIME ? remaining.toFixed(1) : Math.ceil(remaining)}
+    </div>
   );
 }
