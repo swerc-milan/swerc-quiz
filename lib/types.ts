@@ -133,6 +133,7 @@ export type Rank = {
   rank?: number;
   score: number;
   delta: number;
+  name: string;
 };
 
 // /images/:id

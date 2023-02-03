@@ -1,4 +1,4 @@
-import { Rank, Ranking, Submission } from "./types";
+import { Rank, Ranking, Submission, User } from "./types";
 
 // Points that are awarded to the first correct submission if everyone answers correctly.
 const MIN_POINTS_FASTEST_CORRECT = 500;
@@ -11,6 +11,7 @@ const MIN_POINTS_CORRECT = 10;
 export function updateRanking(
   oldRanking: Rank[],
   submissions: Record<string, Submission>,
+  users: Record<string, User>,
   startTime: number,
   maxTime: number,
   correctAnswerId: string
@@ -21,6 +22,7 @@ export function updateRanking(
       uid: oldPlayer.uid,
       score: oldPlayer.score,
       delta: 0,
+      name: users[oldPlayer.uid]?.name ?? "",
     };
   }
   const answerCounts: Record<string, number> = {};
@@ -30,6 +32,7 @@ export function updateRanking(
         uid,
         score: 0,
         delta: 0,
+        name: users[uid]?.name ?? "",
       };
     }
     if (!(submission.answerId in answerCounts)) {

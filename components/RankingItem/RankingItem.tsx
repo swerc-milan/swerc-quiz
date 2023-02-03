@@ -18,18 +18,15 @@ const HIDDEN_NAMES = [
 export function RankingItem({
   item,
   hideName,
-  users,
   index,
   isMe,
 }: {
   item: Rank;
   hideName: boolean;
-  users: Record<string, User>;
   index: number;
   isMe: boolean;
 }) {
-  const user = users[item.uid] ?? { name: "Unknown" };
-  const name = hideName ? HIDDEN_NAMES[index % HIDDEN_NAMES.length] : user.name;
+  const name = hideName ? HIDDEN_NAMES[index % HIDDEN_NAMES.length] : item.name;
   return (
     <div className={classNames(styles.item, { [styles.isMe]: isMe })}>
       <div className={styles.rank}>

@@ -12,8 +12,11 @@ createOnly(value) {
 }
 
 path /users {
-    read() { true }
+    read() { isAdmin() }
     write() { isAdmin() }
+}
+path /users/{uid} {
+    read() { true }
 }
 
 path /state {
@@ -78,9 +81,10 @@ type Answer {
 
 type Ranking {
     uid: String,
-    rank: Number,
+    rank: Number | Null,
     score: Number,
-    delta: Number
+    delta: Number,
+    name: String,
 }
 
 type Image {

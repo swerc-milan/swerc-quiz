@@ -1,9 +1,5 @@
-import { ErrorView } from "components/ErrorView/ErrorView";
 import { RankingItem } from "components/RankingItem/RankingItem";
-import { ref } from "firebase/database";
-import { database } from "lib/firebase";
-import { States, User } from "lib/types";
-import { useObjectVal } from "react-firebase-hooks/database";
+import { States } from "lib/types";
 import styles from "./FinalRanking.module.css";
 
 export function FinalRanking({
@@ -13,12 +9,6 @@ export function FinalRanking({
   uid: string;
   state: States.FinalRanking;
 }) {
-  const [users, usersLoading, usersError] = useObjectVal<Record<string, User>>(
-    ref(database, "users")
-  );
-  if (usersLoading) return <div>Loading...</div>;
-  if (usersError) return <ErrorView error={usersError} />;
-
   const hideFirst = state.hideFirst ?? 0;
 
   return (
@@ -33,7 +23,6 @@ export function FinalRanking({
               key={item.uid}
               item={item}
               hideName={shouldHide}
-              users={users ?? {}}
               index={index}
               isMe={isMe && (item.rank ?? Infinity) > hideFirst}
             />

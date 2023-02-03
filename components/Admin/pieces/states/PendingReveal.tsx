@@ -5,7 +5,7 @@ import { get, ref, set } from "firebase/database";
 import { revealQuestion } from "lib/admin";
 import { database } from "lib/firebase";
 import { updateRanking } from "lib/ranking";
-import { Game, Ranking, States, Submission } from "lib/types";
+import { Game, Ranking, States, Submission, User } from "lib/types";
 import { useObject, useObjectVal } from "react-firebase-hooks/database";
 
 export function PendingReveal({
@@ -20,6 +20,9 @@ export function PendingReveal({
   );
   const [ranking, rankingLoading, rankingError] = useObjectVal<Ranking>(
     ref(database, `ranking/${state.gameId}/${state.questionId}`)
+  );
+  const [users, usersLoading, usersError] = useObjectVal<Record<string, User>>(
+    ref(database, "users")
   );
 
   if (!game.questions) return <ErrorView error="Game has no questions" />;
@@ -45,6 +48,9 @@ export function PendingReveal({
   if (rankingLoading) return <div>Loading ranking...</div>;
   if (rankingError) return <ErrorView error={rankingError} />;
 
+  if (usersLoading) return <div>Loading users...</div>;
+  if (usersError) return <ErrorView error={usersError} />;
+
   const submissions: Record<string, Submission> =
     submissionsSnapshot?.val() ?? {};
 
@@ -61,6 +67,7 @@ export function PendingReveal({
           const newRanking = updateRanking(
             oldRanking.ranking ?? [],
             submissions,
+            users ?? {},
             state.startTime ?? 0,
             question.time ?? 0,
             correctAnswer.id ?? ""
@@ -76,6 +83,7 @@ export function PendingReveal({
       const newRanking = updateRanking(
         [],
         submissions,
+        users ?? {},
         state.startTime ?? 0,
         question.time ?? 0,
         correctAnswer.id ?? ""
