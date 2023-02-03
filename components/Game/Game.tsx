@@ -18,34 +18,34 @@ import styles from "./Game.module.css";
 import classNames from "classnames";
 
 const ANIMATION_DURATION = 1000;
-// const ANIMATION_DURATION = 5000;
+
+const INITIAL = "INITIAL";
+const REMOVED = "REMOVED";
 
 export function Game({ uid, wide }: { uid?: string; wide?: boolean }) {
   const [state, loading, error] = useObjectVal<State>(ref(database, "state"));
   // Keep the current state and the last state so that we can transition between them.
-  const [previousState, setPreviousState] = useState<State | undefined>(
-    undefined
-  );
-  const [currentState, setCurrentState] = useState<State | undefined>(
-    undefined
-  );
+  const [previousState, setPreviousState] = useState<
+    State | undefined | typeof INITIAL | typeof REMOVED
+  >(INITIAL);
+  const [currentState, setCurrentState] = useState<
+    State | undefined | typeof INITIAL
+  >(INITIAL);
 
   useEffect(() => {
-    const savedStateKind = currentState?.kind;
-    const stateKind = state?.kind;
     let timer: NodeJS.Timeout | null = null;
 
-    if (savedStateKind !== stateKind) {
-      setPreviousState(currentState);
-      if (currentState !== undefined) {
-        // Remove the old state after the animation has finished.
-        timer = setTimeout(
-          () => setPreviousState(undefined),
-          ANIMATION_DURATION
-        );
+    if (currentState === INITIAL || currentState?.kind !== state?.kind) {
+      if (previousState === INITIAL && currentState !== INITIAL) {
+        // The first render we don't want the animation.
+        setPreviousState(state);
+      } else {
+        setPreviousState(currentState);
       }
+      // Remove the old state after the animation has finished.
+      timer = setTimeout(() => setPreviousState("REMOVED"), ANIMATION_DURATION);
     }
-    setCurrentState(state ? { ...state } : null);
+    setCurrentState(state ? { ...state } : undefined);
     return () => {
       if (timer) clearTimeout(timer);
     };
@@ -55,16 +55,32 @@ export function Game({ uid, wide }: { uid?: string; wide?: boolean }) {
   if (error) return <ErrorView error={error} />;
   if (state === undefined) return <div>An unknown error occurred</div>;
 
-  if (currentState === undefined) return null;
-  if (previousState === undefined)
-    return <GameInner uid={uid} state={currentState} wide={wide} />;
-  const previousStateKind = previousState?.kind;
-  const stateKind = state?.kind;
+  // Not ready yet.
+  if (currentState === "INITIAL") {
+    console.log("Not ready yet.");
+    return null;
+  }
 
-  if (previousStateKind !== stateKind) {
+  // First render, animate from nothing to the current state.
+  if (previousState === "INITIAL") {
+    console.log("First render, animate from nothing to the current state.");
     return (
       <>
-        <GameInner uid={uid} state={state} wide={wide} />
+        <GameInner uid={uid} state={currentState} wide={wide} />
+      </>
+    );
+  }
+
+  // The previous state has been removed after the animation ended.
+  if (previousState === "REMOVED") {
+    return <GameInner uid={uid} state={currentState} wide={wide} />;
+  }
+
+  // Render both states and animate between them.
+  if (previousState?.kind !== currentState?.kind) {
+    return (
+      <>
+        <GameInner uid={uid} state={currentState} wide={wide} />
         <div
           className={classNames(styles.fadeAway, { [styles.wide]: wide })}
           style={
@@ -103,7 +119,7 @@ function GameInner({
     return () => setWakeLock(false);
   }, [state]);
 
-  if (state === null) return <NoGame wide={wide} />;
+  if (!state) return <NoGame wide={wide} />;
   switch (state.kind) {
     case "pendingStart":
       return <PendingStart state={state} wide={wide} />;

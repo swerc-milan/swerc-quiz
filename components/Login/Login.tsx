@@ -9,8 +9,9 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 export function Login() {
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState<string | null>(null);
+  const [loggingIn, setLoggingIn] = useState(false);
 
-  const [user, loading, error] = useAuthState(auth);
+  const [user, , error] = useAuthState(auth);
   const router = useRouter();
 
   useEffect(() => {
@@ -24,17 +25,21 @@ export function Login() {
   };
 
   const login = async () => {
+    setLoginError(null);
+    setLoggingIn(true);
+    if (!password) return;
     try {
-      setLoginError(null);
       await signInWithEmailAndPassword(
         auth,
         `${password}@example.com`,
         password
       );
       router.push("/");
+      setLoggingIn(false);
     } catch (error) {
       console.error(error);
-      setLoginError("Failed to login");
+      setLoginError("Wrong password!");
+      setLoggingIn(false);
     }
   };
 
@@ -56,12 +61,12 @@ export function Login() {
           onChange={(e) => setPassword(cleanPassword(e.target.value))}
           autoFocus
         />
-        <button className={styles.button} type="submit">
-          Login
+        <button className={styles.button} type="submit" disabled={loggingIn}>
+          {loggingIn ? "Loading..." : "Login"}
         </button>
+        {error && <ErrorView error={error} />}
+        <div className={styles.loginError}>{loginError}</div>
       </div>
-      {error && <ErrorView error={error} />}
-      {loginError && <ErrorView error={loginError} />}
     </form>
   );
 }

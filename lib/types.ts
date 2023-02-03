@@ -6,7 +6,7 @@ export type User = {
 };
 
 export namespace States {
-  export type NoGame = null;
+  export type NoGame = null | undefined;
   export type PendingStart = {
     kind: "pendingStart";
     gameId?: string;
