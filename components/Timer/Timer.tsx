@@ -21,9 +21,11 @@ export function getRemainingTime(
 export function Timer({
   startTimestamp,
   duration,
+  wide,
 }: {
   startTimestamp: number;
   duration: number;
+  wide?: boolean;
 }) {
   const [offset] = useObjectVal<number>(
     ref(database, ".info/serverTimeOffset")
@@ -49,6 +51,7 @@ export function Timer({
     <div
       className={classNames(styles.timer, {
         [styles.warning]: remaining <= WARNING_TIME,
+        [styles.wide]: wide,
       })}
       style={
         {

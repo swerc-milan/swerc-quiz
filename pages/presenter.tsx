@@ -4,7 +4,7 @@ import { Layout } from "components/Layout/Layout";
 export default function PresenterPage() {
   return (
     <Layout wide>
-      <Game uid={""} />
+      <Game wide />
     </Layout>
   );
 }

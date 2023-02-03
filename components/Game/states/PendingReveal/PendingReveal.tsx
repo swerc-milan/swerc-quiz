@@ -8,9 +8,11 @@ import styles from "./PendingReveal.module.css";
 export function PendingReveal({
   uid,
   state,
+  wide,
 }: {
   uid?: string;
   state: States.PendingReveal;
+  wide?: boolean;
 }) {
   const [submission, submissionLoading] = useObjectVal<Submission>(
     uid
@@ -25,7 +27,7 @@ export function PendingReveal({
   };
 
   return (
-    <MessageView>
+    <MessageView wide={wide}>
       <div>
         <div>Time is up!</div>
         {getMessage() && <div className={styles.tooLate}>{getMessage()}</div>}

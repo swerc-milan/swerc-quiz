@@ -12,6 +12,7 @@ export function AnswersLayout({
   submissionAnswerId,
   correctAnswerId,
   answerCounts,
+  wide,
 }: {
   layout: "list" | "grid";
   answers?: Answer[];
@@ -21,6 +22,7 @@ export function AnswersLayout({
   submissionAnswerId?: string;
   correctAnswerId?: string;
   answerCounts?: Record<string, number>;
+  wide?: boolean;
 }) {
   const numAnswers = Object.values(answerCounts ?? {}).reduce(
     (sum, count) => sum + count,
@@ -31,7 +33,9 @@ export function AnswersLayout({
       className={classnames(styles.answers, {
         [styles.listLayout]: layout === "list",
         [styles.gridLayout]: layout === "grid",
+        [styles.wide]: wide,
       })}
+      style={{ "--num-options": (answers ?? []).length } as React.CSSProperties}
     >
       {(answers ?? []).map((answer, index) => (
         <AnswerButton

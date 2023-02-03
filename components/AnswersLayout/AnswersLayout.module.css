@@ -13,3 +13,11 @@
 .gridLayout {
   grid-template-columns: repeat(2, 1fr);
 }
+
+.answers.wide {
+  grid-template-columns: repeat(var(--num-options), 1fr);
+}
+
+.answers.wide * {
+  font-size: 3.5rem;
+}

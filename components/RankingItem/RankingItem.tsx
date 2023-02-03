@@ -20,15 +20,22 @@ export function RankingItem({
   hideName,
   index,
   isMe,
+  wide,
 }: {
   item: Rank;
   hideName: boolean;
   index: number;
   isMe: boolean;
+  wide?: boolean;
 }) {
   const name = hideName ? HIDDEN_NAMES[index % HIDDEN_NAMES.length] : item.name;
   return (
-    <div className={classNames(styles.item, { [styles.isMe]: isMe })}>
+    <div
+      className={classNames(styles.item, {
+        [styles.isMe]: isMe,
+        [styles.wide]: wide,
+      })}
+    >
       <div className={styles.rank}>
         {item.rank !== undefined ? `#${item.rank}` : "?"}
       </div>

@@ -9,9 +9,11 @@ import { QuestionText } from "components/QuestionText/QuestionText";
 export function QuestionReveal({
   uid,
   state,
+  wide,
 }: {
   uid?: string;
   state: States.QuestionReveal;
+  wide?: boolean;
 }) {
   const [submission] = useObjectVal<Submission>(
     uid
@@ -24,8 +26,8 @@ export function QuestionReveal({
 
   return (
     <div>
-      <GameHeader index={state.index} />
-      <QuestionText text={state.text} imageId={state.imageId} />
+      <GameHeader index={state.index} wide={wide} />
+      <QuestionText text={state.text} imageId={state.imageId} wide={wide} />
       <AnswersLayout
         layout={layout}
         answers={state.answers}
@@ -35,6 +37,7 @@ export function QuestionReveal({
         submissionAnswerId={submissionAnswerId}
         correctAnswerId={state.correctAnswerId}
         answerCounts={answerCounts}
+        wide={wide}
       />
     </div>
   );

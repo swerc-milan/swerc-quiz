@@ -7,3 +7,11 @@
   font-size: 4rem;
   text-align: center;
 }
+
+.message strong {
+  color: white;
+}
+
+.message.wide {
+  font-size: 10rem;
+}

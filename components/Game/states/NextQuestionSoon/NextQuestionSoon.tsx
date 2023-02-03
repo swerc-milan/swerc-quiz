@@ -4,8 +4,10 @@ import styles from "./NextQuestionSoon.module.css";
 
 export function NextQuestionSoon({
   state,
+  wide,
 }: {
   state: States.NextQuestionSoon;
+  wide?: boolean;
 }) {
   const questionName =
     state.index !== undefined
@@ -22,7 +24,7 @@ export function NextQuestionSoon({
     "is about to start"
   );
   return (
-    <MessageView>
+    <MessageView wide={wide}>
       <div>
         <div>
           {questionName} {topic}

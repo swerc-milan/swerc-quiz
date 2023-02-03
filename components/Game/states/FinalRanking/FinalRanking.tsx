@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { RankingItem } from "components/RankingItem/RankingItem";
 import { States } from "lib/types";
 import styles from "./FinalRanking.module.css";
@@ -5,14 +6,16 @@ import styles from "./FinalRanking.module.css";
 export function FinalRanking({
   uid,
   state,
+  wide,
 }: {
   uid?: string;
   state: States.FinalRanking;
+  wide?: boolean;
 }) {
   const hideFirst = state.hideFirst ?? 0;
 
   return (
-    <div className={styles.container}>
+    <div className={classNames(styles.container, { [styles.wide]: wide })}>
       <div className={styles.title}>Final standings</div>
       <div className={styles.ranking}>
         {(state.ranking ?? [])
@@ -27,6 +30,7 @@ export function FinalRanking({
                 hideName={shouldHide}
                 index={index}
                 isMe={isMe && !shouldHide}
+                wide={wide}
               />
             );
           })}

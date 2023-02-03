@@ -12,3 +12,23 @@
   padding: 0 0.75rem;
   text-align: center;
 }
+
+.wide.withImage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+}
+
+.wide .text {
+  font-size: 6rem;
+  line-height: 6.2rem;
+  margin-top: 0;
+}
+
+.wide .image {
+  margin: 0 auto;
+  max-width: 100%;
+  max-height: 50vh;
+}

@@ -9,9 +9,11 @@ import { QuestionText } from "components/QuestionText/QuestionText";
 export function QuestionOpen({
   uid,
   state,
+  wide,
 }: {
   uid?: string;
   state: States.QuestionOpen;
+  wide?: boolean;
 }) {
   const [submission] = useObjectVal<Submission>(
     uid
@@ -27,8 +29,9 @@ export function QuestionOpen({
         index={state.index}
         time={state.time}
         startTime={state.startTime}
+        wide={wide}
       />
-      <QuestionText text={state.text} imageId={state.imageId} />
+      <QuestionText text={state.text} imageId={state.imageId} wide={wide} />
       <AnswersLayout
         layout={layout}
         answers={state.answers}
@@ -36,6 +39,7 @@ export function QuestionOpen({
         questionId={state.questionId ?? "?"}
         uid={uid}
         submissionAnswerId={submissionAnswerId}
+        wide={wide}
       />
     </div>
   );

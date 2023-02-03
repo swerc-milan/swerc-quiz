@@ -3,11 +3,19 @@
   padding: 1rem;
 }
 
+.container.wide {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
 .title {
   font-size: 1.8rem;
   font-weight: bold;
   text-align: center;
   margin-bottom: 2rem;
+}
+.container.wide .title {
+  font-size: 4rem;
 }
 
 .ranking {

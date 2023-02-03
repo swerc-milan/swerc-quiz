@@ -25,3 +25,12 @@
   font-size: 1.3rem;
   margin-bottom: 1rem;
 }
+
+.container.wide {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.container.wide .title {
+  font-size: 4rem;
+}
