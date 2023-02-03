@@ -6,9 +6,13 @@
   justify-content: center;
 }
 
-.image {
-  width: 50%;
+.login {
   max-width: 500px;
+  margin: 0 auto;
+}
+
+.image {
+  width: 100%;
   margin: 0 auto 2rem auto;
   display: block;
 }
@@ -23,6 +27,7 @@
   border-radius: 0.25rem;
   text-align: center;
   font-size: 1.5rem;
+  font-family: monospace;
 }
 
 .button {

@@ -46,22 +46,20 @@ export function Login() {
         login();
       }}
     >
-      <img className={styles.image} src="/swerc.png" />
-      {loading && <p>Loading...</p>}
-      {!loading && (
-        <>
-          <input
-            className={styles.input}
-            placeholder="Password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(cleanPassword(e.target.value))}
-          />
-          <button className={styles.button} type="submit">
-            Login
-          </button>
-        </>
-      )}
+      <div className={styles.login}>
+        <img className={styles.image} src="/swerc-neg.svg" />
+        <input
+          className={styles.input}
+          placeholder="Password"
+          type="text"
+          value={password}
+          onChange={(e) => setPassword(cleanPassword(e.target.value))}
+          autoFocus
+        />
+        <button className={styles.button} type="submit">
+          Login
+        </button>
+      </div>
       {error && <ErrorView error={error} />}
       {loginError && <ErrorView error={loginError} />}
     </form>
