@@ -1,3 +1,4 @@
+import { AdminButton } from "components/AdminButton/AdminButton";
 import { makePendingGame } from "lib/admin";
 import { Game, Games } from "lib/types";
 
@@ -20,9 +21,9 @@ function SelectGame({ game, gameId }: { game: Game; gameId: string }) {
   return (
     <>
       <div>
-        <button onClick={() => makePendingGame(game.name ?? null, gameId)}>
+        <AdminButton onClick={() => makePendingGame(game.name ?? null, gameId)}>
           {game.name ?? "<unnamed>"}
-        </button>{" "}
+        </AdminButton>{" "}
         <small>({gameId})</small>
       </div>
       {game.questions && game.questions.length > 0 && (

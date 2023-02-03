@@ -1,3 +1,4 @@
+import { AdminButton } from "components/AdminButton/AdminButton";
 import { ErrorView } from "components/ErrorView/ErrorView";
 import { ref } from "firebase/database";
 import { showFinalRanking } from "lib/admin";
@@ -39,7 +40,7 @@ export function PendingFinalRanking({
         />{" "}
         players.
       </p>
-      <button
+      <AdminButton
         onClick={() =>
           showFinalRanking(
             gameId,
@@ -50,7 +51,7 @@ export function PendingFinalRanking({
         }
       >
         Show ranking
-      </button>
+      </AdminButton>
     </div>
   );
 }

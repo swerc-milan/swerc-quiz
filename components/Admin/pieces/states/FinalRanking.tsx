@@ -1,3 +1,4 @@
+import { AdminButton } from "components/AdminButton/AdminButton";
 import { cancelGame, updateFinalRankingHideFirst } from "lib/admin";
 import { Game, States } from "lib/types";
 
@@ -14,25 +15,25 @@ export function FinalRanking({
       {hideFirst > 0 ? (
         <>
           <p>Ranking is shown up to position {hideFirst}.</p>
-          <button
+          <AdminButton
             onClick={() => {
               updateFinalRankingHideFirst(hideFirst - 1);
             }}
           >
             Show next position
-          </button>
+          </AdminButton>
         </>
       ) : (
         <>
           <p>The entire ranking is visible.</p>
-          <button
+          <AdminButton
             onClick={() => {
               if (confirm("Are you sure you want to reset EVERYTHING?"))
                 cancelGame();
             }}
           >
             Reset
-          </button>
+          </AdminButton>
         </>
       )}
     </div>

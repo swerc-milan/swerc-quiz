@@ -1,3 +1,4 @@
+import { AdminButton } from "components/AdminButton/AdminButton";
 import { ErrorView } from "components/ErrorView/ErrorView";
 import { RankingPreview } from "components/RankingPreview/RankingPreview";
 import { ref } from "firebase/database";
@@ -38,7 +39,7 @@ export function QuestionReveal({
   return (
     <div>
       <p>Ready to reveal current standings.</p>
-      <button
+      <AdminButton
         onClick={() =>
           revealCurrentRanking(
             gameId,
@@ -50,7 +51,7 @@ export function QuestionReveal({
         }
       >
         Reveal standings
-      </button>
+      </AdminButton>
       <RankingPreview ranking={ranking.ranking ?? []} />
     </div>
   );

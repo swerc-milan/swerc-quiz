@@ -1,3 +1,4 @@
+import { AdminButton } from "components/AdminButton/AdminButton";
 import { cancelGame, prepareNextQuestion } from "lib/admin";
 import { Game, States } from "lib/types";
 
@@ -26,13 +27,13 @@ export function PendingStart({
     <>
       <p>{state.name ?? "A game"} is ready to start.</p>
       <div>
-        <button
+        <AdminButton
           disabled={!game.questions || game.questions.length === 0}
           onClick={() => start()}
         >
           Start
-        </button>{" "}
-        <button onClick={() => cancelGame()}>Cancel</button>
+        </AdminButton>{" "}
+        <AdminButton onClick={() => cancelGame()}>Cancel</AdminButton>
       </div>
       <GameSummary game={game} />
     </>

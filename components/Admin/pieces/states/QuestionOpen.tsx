@@ -1,3 +1,4 @@
+import { AdminButton } from "components/AdminButton/AdminButton";
 import { ErrorView } from "components/ErrorView/ErrorView";
 import { getRemainingTime } from "components/Timer/Timer";
 import { ref } from "firebase/database";
@@ -66,7 +67,7 @@ export function QuestionOpen({
         {remaining ?? "?"} seconds.
       </p>
       <div>
-        <button
+        <AdminButton
           onClick={() =>
             prepareNextQuestion(
               gameId,
@@ -78,8 +79,8 @@ export function QuestionOpen({
           }
         >
           Reset question timer
-        </button>
-        <button
+        </AdminButton>
+        <AdminButton
           onClick={() => {
             if (state.startTime === undefined) return;
             if (confirm("You are about to close the question. Are you sure?")) {
@@ -88,7 +89,7 @@ export function QuestionOpen({
           }}
         >
           Close question
-        </button>
+        </AdminButton>
       </div>
     </>
   );

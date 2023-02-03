@@ -1,3 +1,4 @@
+import { AdminButton } from "components/AdminButton/AdminButton";
 import { ErrorView } from "components/ErrorView/ErrorView";
 import { RankingPreview } from "components/RankingPreview/RankingPreview";
 import { get, ref, set } from "firebase/database";
@@ -93,7 +94,7 @@ export function PendingReveal({
         {ranking ? (
           <>
             <div>Ranking is ready!</div>
-            <button
+            <AdminButton
               onClick={() => {
                 revealQuestion(
                   gameId,
@@ -109,13 +110,15 @@ export function PendingReveal({
               }}
             >
               Reveal correct answer
-            </button>
+            </AdminButton>
             <RankingPreview ranking={ranking.ranking ?? []} />
           </>
         ) : (
           <>
             <div>Ranking is not ready yet.</div>
-            <button onClick={() => computeRanking()}>Compute ranking</button>
+            <AdminButton onClick={() => computeRanking()}>
+              Compute ranking
+            </AdminButton>
           </>
         )}
       </div>

@@ -1,3 +1,4 @@
+import { AdminButton } from "components/AdminButton/AdminButton";
 import { ErrorView } from "components/ErrorView/ErrorView";
 import { QuestionPreview } from "components/QuestionPreview/QuestionPreview";
 import { RankingPreview } from "components/RankingPreview/RankingPreview";
@@ -41,7 +42,7 @@ export function CurrentRanking({
       {nextQuestion ? (
         <>
           <p>Ready to start the next question.</p>
-          <button
+          <AdminButton
             onClick={() => {
               prepareNextQuestion(
                 gameId,
@@ -53,19 +54,19 @@ export function CurrentRanking({
             }}
           >
             Prepare next question
-          </button>
+          </AdminButton>
           <QuestionPreview question={nextQuestion} />
         </>
       ) : (
         <>
           <p>This was the last question.</p>
-          <button
+          <AdminButton
             onClick={() => {
               prepareFinalRanking(gameId, questionId);
             }}
           >
             Start the hype
-          </button>
+          </AdminButton>
         </>
       )}
 

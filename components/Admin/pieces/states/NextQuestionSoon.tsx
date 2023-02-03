@@ -1,3 +1,4 @@
+import { AdminButton } from "components/AdminButton/AdminButton";
 import { ErrorView } from "components/ErrorView/ErrorView";
 import { QuestionPreview } from "components/QuestionPreview/QuestionPreview";
 import { openQuestion } from "lib/admin";
@@ -27,7 +28,7 @@ export function NextQuestionSoon({
         The question <strong>{index + 1}</strong> is ready to start.
       </p>
       <div>
-        <button
+        <AdminButton
           onClick={() => {
             openQuestion(
               gameId,
@@ -42,7 +43,7 @@ export function NextQuestionSoon({
           }}
         >
           Start timer
-        </button>
+        </AdminButton>
       </div>
       <QuestionPreview question={question} />
     </div>
