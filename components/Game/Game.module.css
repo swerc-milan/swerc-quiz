@@ -1,0 +1,50 @@
+.fadeAway {
+  --duration: 0.5s;
+  --center-x: -50%;
+  --center-y: 50%;
+  --radius: 192%;
+
+  display: none;
+}
+
+@supports (clip-path: circle(0% at 0 0)) {
+  .fadeAway {
+    position: absolute;
+    top: 80px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    display: flex;
+  }
+
+  .fadeAway > * {
+    z-index: 3;
+    background-color: var(--background-color);
+
+    animation: fadeAway var(--duration) ease-in-out;
+  }
+
+  .fadeAway.wide {
+    top: 0;
+  }
+
+  .fadeAway::before {
+    --radius: 194%;
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background-color: white;
+    animation: fadeAway var(--duration) ease-in-out;
+  }
+}
+
+@keyframes fadeAway {
+  from {
+    clip-path: circle(var(--radius) at var(--center-x) var(--center-y));
+  }
+  to {
+    clip-path: circle(0% at var(--center-x) var(--center-y));
+  }
+}

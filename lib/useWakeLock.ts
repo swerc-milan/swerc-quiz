@@ -14,7 +14,6 @@ export function useWakeLock() {
   const [wakeLock, setWakeLock] = useState<WakeLockSentinel | null>(null);
 
   useEffect(() => {
-    console.log("useWakeLock effect", active, wakeLock);
     // The wakeLock API is not available in all browsers.
     if (!("wakeLock" in navigator)) return;
 

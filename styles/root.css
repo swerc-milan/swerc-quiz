@@ -1,6 +1,7 @@
 html,
 body {
-  background-color: rgb(44, 44, 44);
+  --background-color: rgb(44, 44, 44);
+  background-color: var(--background-color);
   color: rgb(208, 208, 208);
   font-family: sans-serif;
   min-height: 100vh;
