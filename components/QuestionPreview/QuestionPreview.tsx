@@ -19,9 +19,7 @@ export function QuestionPreview({ question }: { question: Question }) {
         <>
           {imageLoading && <div>Loading...</div>}
           {imageError && <ErrorView error={imageError} />}
-          {image && (image.kind ?? "img") === "img" && (
-            <img className={styles.image} src={image.url} />
-          )}
+          {image && <img className={styles.image} src={image.url} />}
         </>
       )}
       {question.topic && (

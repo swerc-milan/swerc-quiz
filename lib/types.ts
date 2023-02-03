@@ -139,6 +139,5 @@ export type Rank = {
 
 // /images/:id
 export type Image = {
-  kind?: "img";
   url: string;
 };

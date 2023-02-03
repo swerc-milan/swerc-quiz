@@ -89,6 +89,5 @@ type Ranking {
 }
 
 type Image {
-    kind: String | Null,
     url: String
 }
