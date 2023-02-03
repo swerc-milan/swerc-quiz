@@ -10,11 +10,13 @@ export function QuestionReveal({
   uid,
   state,
 }: {
-  uid: string;
+  uid?: string;
   state: States.QuestionReveal;
 }) {
   const [submission] = useObjectVal<Submission>(
-    ref(database, `answers/${state.gameId}/${state.questionId}/${uid}`)
+    uid
+      ? ref(database, `answers/${state.gameId}/${state.questionId}/${uid}`)
+      : undefined
   );
   const submissionAnswerId = submission?.answerId;
   const layout = state.layout ?? "list";

@@ -3,10 +3,8 @@ import { States } from "lib/types";
 import styles from "./NextQuestionSoon.module.css";
 
 export function NextQuestionSoon({
-  uid,
   state,
 }: {
-  uid: string;
   state: States.NextQuestionSoon;
 }) {
   const questionName =

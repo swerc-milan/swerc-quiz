@@ -8,7 +8,7 @@ export function CurrentRanking({
   uid,
   state,
 }: {
-  uid: string;
+  uid?: string;
   state: States.CurrentRanking;
 }) {
   const index = state.index === undefined ? state.index : state.index + 1;

@@ -6,7 +6,7 @@ export function FinalRanking({
   uid,
   state,
 }: {
-  uid: string;
+  uid?: string;
   state: States.FinalRanking;
 }) {
   const hideFirst = state.hideFirst ?? 0;

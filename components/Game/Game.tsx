@@ -15,7 +15,7 @@ import { PendingStart } from "./states/PendingStart/PendingStart";
 import { QuestionOpen } from "./states/QuestionOpen/QuestionOpen";
 import { QuestionReveal } from "./states/QuestionReveal/QuestionReveal";
 
-export function Game({ uid }: { uid: string }) {
+export function Game({ uid }: { uid?: string }) {
   const [state, loading, error] = useObjectVal<State>(ref(database, "state"));
 
   if (loading) return <div>Loading...</div>;
@@ -24,7 +24,7 @@ export function Game({ uid }: { uid: string }) {
   return <GameInner uid={uid} state={state} />;
 }
 
-function GameInner({ uid, state }: { uid: string; state: State }) {
+function GameInner({ uid, state }: { uid?: string; state: State }) {
   const [, setWakeLock] = useWakeLock();
 
   useEffect(() => {
@@ -38,12 +38,12 @@ function GameInner({ uid, state }: { uid: string; state: State }) {
     return () => setWakeLock(false);
   }, [state]);
 
-  if (state === null) return <NoGame uid={uid} state={state} />;
+  if (state === null) return <NoGame />;
   switch (state.kind) {
     case "pendingStart":
-      return <PendingStart uid={uid} state={state} />;
+      return <PendingStart state={state} />;
     case "nextQuestionSoon":
-      return <NextQuestionSoon uid={uid} state={state} />;
+      return <NextQuestionSoon state={state} />;
     case "questionOpen":
       return <QuestionOpen uid={uid} state={state} />;
     case "pendingReveal":
@@ -53,7 +53,7 @@ function GameInner({ uid, state }: { uid: string; state: State }) {
     case "currentRanking":
       return <CurrentRanking uid={uid} state={state} />;
     case "pendingFinalRanking":
-      return <PendingFinalRanking uid={uid} state={state} />;
+      return <PendingFinalRanking />;
     case "finalRanking":
       return <FinalRanking uid={uid} state={state} />;
     default:

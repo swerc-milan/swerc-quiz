@@ -5,7 +5,7 @@ import "styles/root.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
+    <>
       <Head>
         <title>SWERC quiz</title>
         <link
@@ -31,6 +31,6 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#ffffff" />
       </Head>
       <Component {...pageProps} />
-    </Layout>
+    </>
   );
 }

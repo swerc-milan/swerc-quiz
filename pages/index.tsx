@@ -1,4 +1,5 @@
 import { Game } from "components/Game/Game";
+import { Layout } from "components/Layout/Layout";
 import { Navbar } from "components/Navbar/Navbar";
 import { auth } from "lib/firebase";
 import { useRouter } from "next/router";
@@ -19,9 +20,9 @@ export default function IndexPage() {
   if (!user) return null;
 
   return (
-    <>
+    <Layout>
       <Navbar />
       <Game uid={user.uid} />
-    </>
+    </Layout>
   );
 }

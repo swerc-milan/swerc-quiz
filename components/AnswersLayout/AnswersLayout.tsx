@@ -17,7 +17,7 @@ export function AnswersLayout({
   answers?: Answer[];
   gameId: string;
   questionId: string;
-  uid: string;
+  uid?: string;
   submissionAnswerId?: string;
   correctAnswerId?: string;
   answerCounts?: Record<string, number>;

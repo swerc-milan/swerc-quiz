@@ -9,23 +9,26 @@ export function PendingReveal({
   uid,
   state,
 }: {
-  uid: string;
+  uid?: string;
   state: States.PendingReveal;
 }) {
   const [submission, submissionLoading] = useObjectVal<Submission>(
-    ref(database, `answers/${state.gameId}/${state.questionId}/${uid}`)
+    uid
+      ? ref(database, `answers/${state.gameId}/${state.questionId}/${uid}`)
+      : undefined
   );
+  const getMessage = () => {
+    if (!uid) return null;
+    if (submissionLoading) return "Loading...";
+    if (submission) return "We received your answer!";
+    return "You didn't answer in time!";
+  };
+
   return (
     <MessageView>
       <div>
         <div>Time is up!</div>
-        {submissionLoading ? (
-          <div className={styles.tooLate}>Loading...</div>
-        ) : submission ? (
-          <div className={styles.tooLate}>We received your answer!</div>
-        ) : (
-          <div className={styles.tooLate}>You didn't answer in time!</div>
-        )}
+        {getMessage() && <div className={styles.tooLate}>{getMessage()}</div>}
         <div className={styles.subtitle}>And the correct answer is...</div>
       </div>
     </MessageView>

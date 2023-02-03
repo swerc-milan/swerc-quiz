@@ -16,7 +16,7 @@ export function AnswerButton({
 }: {
   gameId: string;
   questionId: string;
-  uid: string;
+  uid?: string;
   answerId: string;
   text: string;
   answered: boolean;
@@ -40,7 +40,7 @@ export function AnswerButton({
             } as React.CSSProperties)
           : {}
       }
-      onClick={() => submitAnswer(gameId, questionId, uid, answerId)}
+      onClick={() => uid && submitAnswer(gameId, questionId, uid, answerId)}
       disabled={answered}
     >
       {text}

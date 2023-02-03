@@ -10,11 +10,13 @@ export function QuestionOpen({
   uid,
   state,
 }: {
-  uid: string;
+  uid?: string;
   state: States.QuestionOpen;
 }) {
   const [submission] = useObjectVal<Submission>(
-    ref(database, `answers/${state.gameId}/${state.questionId}/${uid}`)
+    uid
+      ? ref(database, `answers/${state.gameId}/${state.questionId}/${uid}`)
+      : null
   );
   const submissionAnswerId = submission?.answerId;
   const layout = state.layout ?? "list";
