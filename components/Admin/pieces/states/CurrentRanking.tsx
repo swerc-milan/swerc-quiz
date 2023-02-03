@@ -49,7 +49,8 @@ export function CurrentRanking({
                 nextQuestion.id,
                 index + 1,
                 nextQuestion.topic,
-                nextQuestion.time
+                nextQuestion.time,
+                nextQuestion.imageId
               );
             }}
           >

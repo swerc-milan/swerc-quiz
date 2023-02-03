@@ -6,11 +6,11 @@
 }
 
 .image {
+  display: block;
   width: 100%;
   max-width: 600px;
-  margin-top: 2rem;
+  margin: 2rem auto;
   padding: 0 0.75rem;
-  text-align: center;
 }
 
 .wide.withImage {

@@ -1,4 +1,4 @@
-import { ref, set, serverTimestamp } from "firebase/database";
+import { ref, set, serverTimestamp, get } from "firebase/database";
 import { database } from "./firebase";
 import { Answer, Rank, States } from "./types";
 
@@ -47,7 +47,8 @@ export function prepareNextQuestion(
   questionId: string,
   index: number,
   topic?: string,
-  time?: number
+  time?: number,
+  imageId?: string
 ) {
   const newState: States.NextQuestionSoon = {
     kind: "nextQuestionSoon",
@@ -57,7 +58,20 @@ export function prepareNextQuestion(
   };
   if (topic) newState.topic = topic;
   if (time) newState.time = time;
-  set(ref(database, "state"), newState);
+  if (imageId) {
+    get(ref(database, `images/${imageId}`)).then((snapshot) => {
+      const image = snapshot.val();
+      if (image) {
+        newState.imageUrl = image.url;
+        set(ref(database, "state"), newState);
+      } else {
+        console.error("Image not found: " + imageId);
+        set(ref(database, "state"), newState);
+      }
+    });
+  } else {
+    set(ref(database, "state"), newState);
+  }
 }
 
 export function openQuestion(

@@ -19,6 +19,7 @@ export namespace States {
     index?: number;
     topic?: string;
     time?: number;
+    imageUrl?: string;
   };
   export type QuestionOpen<Timestamp = number> = {
     kind: "questionOpen";
@@ -97,7 +98,6 @@ export type Game = {
 // /admin/games/:id/questions[i]
 export type Question = {
   id: string;
-  index?: number;
   topic?: string;
   text?: string;
   imageId?: string;

@@ -19,7 +19,8 @@ export function PendingStart({
       question.id,
       0,
       question.topic,
-      question.time
+      question.time,
+      question.imageId
     );
   };
 

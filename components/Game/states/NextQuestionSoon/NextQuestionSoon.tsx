@@ -1,5 +1,6 @@
 import { MessageView } from "components/MessageView/MessageView";
 import { States } from "lib/types";
+import Head from "next/head";
 import styles from "./NextQuestionSoon.module.css";
 
 export function NextQuestionSoon({
@@ -25,6 +26,11 @@ export function NextQuestionSoon({
   );
   return (
     <MessageView wide={wide}>
+      {state.imageUrl && (
+        <Head>
+          <link rel="preload" href={state.imageUrl} as="image" />
+        </Head>
+      )}
       <div>
         <div>
           {questionName} {topic}

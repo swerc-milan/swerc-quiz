@@ -74,7 +74,8 @@ export function QuestionOpen({
               questionId,
               index,
               question.topic,
-              question.time
+              question.time,
+              question.imageId
             )
           }
         >
