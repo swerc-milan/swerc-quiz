@@ -27,6 +27,7 @@ export function CurrentRanking({
       <div className={styles.ranking}>
         {(state.ranking ?? [])
           .filter((r) => r.rank !== undefined && r.rank <= CUTOFF)
+          .filter((r) => !r.isHidden)
           .map((item, index) => (
             <RankingItem
               key={item.uid}

@@ -18,22 +18,26 @@ export function updateRanking(
 ): Ranking {
   const newRanking: Record<string, Rank> = {};
   for (const oldPlayer of oldRanking) {
+    const user = users[oldPlayer.uid];
     newRanking[oldPlayer.uid] = {
       uid: oldPlayer.uid,
       score: oldPlayer.score,
       delta: 0,
-      name: users[oldPlayer.uid]?.name ?? "",
+      name: user?.name ?? "",
     };
+    if (user?.isHidden) newRanking[oldPlayer.uid].isHidden = user.isHidden;
   }
   const answerCounts: Record<string, number> = {};
   for (const [uid, submission] of Object.entries(submissions)) {
+    const user = users[uid];
     if (!(uid in newRanking)) {
       newRanking[uid] = {
         uid,
         score: 0,
         delta: 0,
-        name: users[uid]?.name ?? "",
+        name: user?.name ?? "",
       };
+      if (user?.isHidden) newRanking[uid].isHidden = user.isHidden;
     }
     if (!(submission.answerId in answerCounts)) {
       answerCounts[submission.answerId] = 0;
@@ -92,12 +96,14 @@ function updateRank(ranking: Record<string, Rank>) {
   let index = 0;
   let score = Infinity;
   for (const player of sorted) {
-    if (player.score < score) {
+    if (player.score < score && !player.isHidden) {
       rank = index + 1;
       score = player.score;
     }
-    player.rank = rank;
-    index++;
+    if (!player.isHidden) {
+      player.rank = rank;
+      index++;
+    }
   }
   return sorted;
 }

@@ -134,6 +134,7 @@ export type Rank = {
   score: number;
   delta: number;
   name: string;
+  isHidden?: boolean;
 };
 
 // /images/:id

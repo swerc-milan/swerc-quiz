@@ -85,6 +85,7 @@ type Ranking {
     score: Number,
     delta: Number,
     name: String,
+    isHidden: Boolean | Null
 }
 
 type Image {
