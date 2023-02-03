@@ -19,7 +19,6 @@ export function updateRanking(
   for (const oldPlayer of oldRanking) {
     newRanking[oldPlayer.uid] = {
       uid: oldPlayer.uid,
-      rank: -1,
       score: oldPlayer.score,
       delta: 0,
     };
@@ -29,7 +28,6 @@ export function updateRanking(
     if (!(uid in newRanking)) {
       newRanking[uid] = {
         uid,
-        rank: -1,
         score: 0,
         delta: 0,
       };
@@ -102,8 +100,8 @@ function updateRank(ranking: Record<string, Rank>) {
 }
 
 function compare(a: Rank, b: Rank) {
-  if (a.rank < b.rank) return -1;
-  if (a.rank > b.rank) return 1;
+  if ((a.rank ?? Infinity) < (b.rank ?? Infinity)) return -1;
+  if ((a.rank ?? Infinity) > (b.rank ?? Infinity)) return 1;
   if (a.score > b.score) return -1;
   if (a.score < b.score) return 1;
   if (a.delta > b.delta) return -1;

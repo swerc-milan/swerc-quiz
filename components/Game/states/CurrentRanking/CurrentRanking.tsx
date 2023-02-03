@@ -28,7 +28,7 @@ export function CurrentRanking({
   return (
     <div className={styles.container}>
       <div className={styles.title}>After question {index}</div>
-      {myRanking && myRanking.rank > CUTOFF && (
+      {myRanking && (myRanking.rank ?? Infinity) > CUTOFF && (
         <div className={styles.myRanking}>
           <p className={styles.myRankingTitle}>Your position</p>
           <RankingItem
@@ -42,7 +42,7 @@ export function CurrentRanking({
       )}
       <div className={styles.ranking}>
         {(state.ranking ?? [])
-          .filter((r) => r.rank <= CUTOFF)
+          .filter((r) => r.rank !== undefined && r.rank <= CUTOFF)
           .map((item, index) => (
             <RankingItem
               key={item.uid}

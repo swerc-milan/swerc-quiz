@@ -2,6 +2,7 @@
 export type User = {
   name?: string;
   isAdmin?: boolean;
+  isHidden?: boolean;
 };
 
 export namespace States {
@@ -129,7 +130,7 @@ export type Ranking = {
 // /ranking/:gameId/:questionId/ranking[i]
 export type Rank = {
   uid: string;
-  rank: number;
+  rank?: number;
   score: number;
   delta: number;
 };

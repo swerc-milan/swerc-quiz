@@ -32,7 +32,9 @@ export function RankingItem({
   const name = hideName ? HIDDEN_NAMES[index % HIDDEN_NAMES.length] : user.name;
   return (
     <div className={classNames(styles.item, { [styles.isMe]: isMe })}>
-      <div className={styles.rank}>#{item.rank}</div>
+      <div className={styles.rank}>
+        {item.rank !== undefined ? `#${item.rank}` : "?"}
+      </div>
       <div className={styles.score}>{item.score}</div>
       <div className={styles.delta}>+{item.delta}</div>
       <div className={classNames(styles.name, { [styles.hidden]: hideName })}>

@@ -15,7 +15,7 @@ export function RankingPreview({ ranking }: { ranking: Rank[] }) {
   return (
     <ol>
       {ranking.map((r) => (
-        <li key={r.uid} value={r.rank}>
+        <li key={r.uid} value={r.rank ?? "?"}>
           {users[r.uid]?.name ?? r.uid} {r.score} (+{r.delta})
         </li>
       ))}
