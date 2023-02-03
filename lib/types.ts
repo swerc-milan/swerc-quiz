@@ -27,7 +27,7 @@ export namespace States {
     questionId?: string;
     index?: number;
     text?: string;
-    imageId?: string;
+    imageUrl?: string;
     time?: number;
     layout?: "list" | "grid";
     answers?: Answer[];

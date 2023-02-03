@@ -93,10 +93,22 @@ export function openQuestion(
     startTime: serverTimestamp(),
   };
   if (text) newState.text = text;
-  if (imageId) newState.imageId = imageId;
   if (time) newState.time = time;
   if (layout) newState.layout = layout;
-  set(ref(database, "state"), newState);
+  if (imageId) {
+    get(ref(database, `images/${imageId}`)).then((snapshot) => {
+      const image = snapshot.val();
+      if (image) {
+        newState.imageUrl = image.url;
+        set(ref(database, "state"), newState);
+      } else {
+        console.error("Image not found: " + imageId);
+        set(ref(database, "state"), newState);
+      }
+    });
+  } else {
+    set(ref(database, "state"), newState);
+  }
 }
 
 export function closeQuestion(
