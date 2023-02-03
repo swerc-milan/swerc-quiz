@@ -28,6 +28,18 @@ export function CurrentRanking({
   return (
     <div className={styles.container}>
       <div className={styles.title}>After question {index}</div>
+      {myRanking && myRanking.rank > CUTOFF && (
+        <div className={styles.myRanking}>
+          <p className={styles.myRankingTitle}>Your position</p>
+          <RankingItem
+            item={myRanking}
+            hideName={false}
+            users={users ?? {}}
+            index={0}
+            isMe
+          />
+        </div>
+      )}
       <div className={styles.ranking}>
         {(state.ranking ?? [])
           .filter((r) => r.rank <= CUTOFF)
@@ -42,18 +54,6 @@ export function CurrentRanking({
             />
           ))}
       </div>
-      {myRanking && myRanking.rank > CUTOFF && (
-        <div className={styles.myRanking}>
-          <p className={styles.myRankingTitle}>Your position</p>
-          <RankingItem
-            item={myRanking}
-            hideName={false}
-            users={users ?? {}}
-            index={0}
-            isMe
-          />
-        </div>
-      )}
     </div>
   );
 }
