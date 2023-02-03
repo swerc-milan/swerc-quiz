@@ -27,7 +27,7 @@ export function QuestionReveal({
   return (
     <div>
       <GameHeader index={state.index} wide={wide} />
-      <QuestionText text={state.text} imageId={state.imageId} wide={wide} />
+      <QuestionText text={state.text} imageUrl={state.imageUrl} wide={wide} />
       <AnswersLayout
         layout={layout}
         answers={state.answers}

@@ -46,7 +46,7 @@ export namespace States {
     questionId?: string;
     index?: number;
     text?: string;
-    imageId?: string;
+    imageUrl?: string;
     layout?: "list" | "grid";
     answers?: Answer[];
     correctAnswerId?: string;
