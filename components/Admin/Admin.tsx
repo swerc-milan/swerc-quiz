@@ -8,6 +8,7 @@ import { Navbar } from "components/Navbar/Navbar";
 import { CurrentState } from "./pieces/CurrentState";
 import { CurrentStateActions } from "./pieces/CurrentStateActions";
 import { ImportGame } from "components/ImportGame/ImportGame";
+import { AddUser } from "components/AddUser/AddUser";
 
 export function Admin() {
   const [user, loading] = useAuthState(auth);
@@ -48,6 +49,11 @@ function AdminLoggedIn({ uid }: { uid: string }) {
         <details>
           <summary>Import game</summary>
           <ImportGame />
+        </details>
+        <h2>Add user</h2>
+        <details>
+          <summary>Add user</summary>
+          <AddUser />
         </details>
       </div>
     </>
