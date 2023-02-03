@@ -26,7 +26,6 @@ export function AnswersLayout({
     (sum, count) => sum + count,
     0
   );
-  console.log(numAnswers, answerCounts);
   return (
     <div
       className={classnames(styles.answers, {

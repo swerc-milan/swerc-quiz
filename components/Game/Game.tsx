@@ -2,6 +2,8 @@ import { ErrorView } from "components/ErrorView/ErrorView";
 import { ref } from "firebase/database";
 import { database } from "lib/firebase";
 import { State } from "lib/types";
+import { useWakeLock } from "lib/useWakeLock";
+import { useEffect } from "react";
 import { useObjectVal } from "react-firebase-hooks/database";
 import { CurrentRanking } from "./states/CurrentRanking/CurrentRanking";
 import { FinalRanking } from "./states/FinalRanking/FinalRanking";
@@ -23,6 +25,19 @@ export function Game({ uid }: { uid: string }) {
 }
 
 function GameInner({ uid, state }: { uid: string; state: State }) {
+  const [, setWakeLock] = useWakeLock();
+
+  useEffect(() => {
+    if (!state || state.kind === "finalRanking") {
+      setWakeLock(false);
+    } else {
+      setWakeLock(true);
+    }
+
+    // Always disable the wake lock when the component unmounts.
+    return () => setWakeLock(false);
+  }, [state]);
+
   if (state === null) return <NoGame uid={uid} state={state} />;
   switch (state.kind) {
     case "pendingStart":
