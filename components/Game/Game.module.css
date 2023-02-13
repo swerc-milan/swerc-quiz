@@ -23,6 +23,7 @@
     background-color: var(--background-color);
 
     animation: fadeAway var(--duration) ease-in-out;
+    width: 100%;
   }
 
   .fadeAway.wide {
