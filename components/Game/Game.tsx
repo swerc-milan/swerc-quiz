@@ -56,13 +56,13 @@ export function Game({ uid, wide }: { uid?: string; wide?: boolean }) {
   if (state === undefined) return <div>An unknown error occurred</div>;
 
   // Not ready yet.
-  if (currentState === "INITIAL") {
+  if (currentState === INITIAL) {
     console.log("Not ready yet.");
     return null;
   }
 
   // First render, animate from nothing to the current state.
-  if (previousState === "INITIAL") {
+  if (previousState === INITIAL) {
     console.log("First render, animate from nothing to the current state.");
     return (
       <>
@@ -72,7 +72,7 @@ export function Game({ uid, wide }: { uid?: string; wide?: boolean }) {
   }
 
   // The previous state has been removed after the animation ended.
-  if (previousState === "REMOVED") {
+  if (previousState === REMOVED) {
     return <GameInner uid={uid} state={currentState} wide={wide} />;
   }
 
