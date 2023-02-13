@@ -1,4 +1,5 @@
 import { AdminButton } from "components/AdminButton/AdminButton";
+import { TextWithNewLines } from "components/TextWithNewLines/TextWithNewLines";
 import { makePendingGame } from "lib/admin";
 import { Game, Games } from "lib/types";
 
@@ -30,7 +31,7 @@ function SelectGame({ game, gameId }: { game: Game; gameId: string }) {
         <ol>
           {game.questions.map((question, index) => (
             <li key={question.id ?? index}>
-              {question.text ?? "<missing text>"}
+              <TextWithNewLines text={question.text ?? "<empty text>"} />
             </li>
           ))}
         </ol>

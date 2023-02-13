@@ -1,4 +1,5 @@
 import { ErrorView } from "components/ErrorView/ErrorView";
+import { TextWithNewLines } from "components/TextWithNewLines/TextWithNewLines";
 import { ref } from "firebase/database";
 import { database } from "lib/firebase";
 import { Question, Image } from "lib/types";
@@ -13,7 +14,9 @@ export function QuestionPreview({ question }: { question: Question }) {
     <div>
       <h3>Question details</h3>
       <p>
-        <em>{question.text ?? ""}</em>
+        <em>
+          <TextWithNewLines text={question.text ?? "<empty text>"} />
+        </em>
       </p>
       {question.imageId && (
         <>

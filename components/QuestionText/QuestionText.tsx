@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import { TextWithNewLines } from "components/TextWithNewLines/TextWithNewLines";
 import styles from "./QuestionText.module.css";
 
 export function QuestionText({
@@ -17,7 +18,9 @@ export function QuestionText({
         [styles.withImage]: !!imageUrl,
       })}
     >
-      <div className={styles.text}>{text}</div>
+      <div className={styles.text}>
+        <TextWithNewLines text={text ?? ""} />
+      </div>
       {imageUrl && <img src={imageUrl} className={styles.image} />}
     </div>
   );

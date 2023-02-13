@@ -1,4 +1,5 @@
 import { AdminButton } from "components/AdminButton/AdminButton";
+import { TextWithNewLines } from "components/TextWithNewLines/TextWithNewLines";
 import { cancelGame, prepareNextQuestion } from "lib/admin";
 import { Game, States } from "lib/types";
 
@@ -50,7 +51,9 @@ function GameSummary({ game }: { game: Game }) {
         {(game.questions ?? []).map((question, index) => (
           <li key={question.id ?? index}>
             <p>
-              <em>{question.text ?? "<empty text>"}</em>
+              <em>
+                <TextWithNewLines text={question.text ?? "<empty text>"} />
+              </em>
             </p>
             {question.topic && (
               <p>
